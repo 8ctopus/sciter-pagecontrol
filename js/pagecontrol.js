@@ -86,8 +86,6 @@ export class TabSheet extends Element
 
                 // execute tab script
                 eval(script);
-
-                document.on("click", "div[panel=tabsheet-5]", onTabShow);
             }
         }
 

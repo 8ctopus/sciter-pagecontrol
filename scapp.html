@@ -34,43 +34,52 @@ pagecontrol div#tabsheet-4 {
 </style>
 <script>
 
+/**
+ * redirect console logging to plaintext element
+ */
+(function() {
+    // get console log method address
+    const log = console.log;
+
+    // replace original console log
+    console.log = function(message) {
+        document.$("#logger").plaintext.appendLine(message);
+        log.apply(console, arguments);
+    };
+
+    // get console warn method address
+    const warn = console.warn;
+
+    // replace original console log
+    console.warn = function(message) {
+        document.$("#logger").plaintext.appendLine(message);
+        warn.apply(console, arguments);
+    };
+
+    // get console error method address
+    const error = console.error;
+
+    // replace original console log
+    console.error = function(message) {
+        document.$("#logger").plaintext.appendLine(message);
+        error.apply(console, arguments);
+    };
+})();
+
 document.ready = function() {
-    /**
-     * redirect console logging to plaintext element
-     */
-    (function() {
-        // get console log method address
-        const log = console.log;
-
-        // replace original console log
-        console.log = function(message) {
-            document.$("#logger").plaintext.appendLine(message);
-            log.apply(console, arguments);
-        };
-
-        // get console warn method address
-        const warn = console.warn;
-
-        // replace original console log
-        console.warn = function(message) {
-            document.$("#logger").plaintext.appendLine(message);
-            warn.apply(console, arguments);
-        };
-
-        // get console error method address
-        const error = console.error;
-
-        // replace original console log
-        console.error = function(message) {
-            document.$("#logger").plaintext.appendLine(message);
-            error.apply(console, arguments);
-        };
-    })();
-
     // add event listener
-    document.on("click dblclick expand collapse", function(event, element) {
+    document.on("showtab expand collapse", function(event, element) {
         const log = document.$("plaintext");
-        log.plaintext.appendLine(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
+
+        switch (event.type) {
+            case "showtab":
+                log.plaintext.appendLine(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
+                break;
+
+            default:
+                log.plaintext.appendLine(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
+                break;
+        }
     });
 
     let pagecontrol = document.$("pagecontrol");
@@ -98,7 +107,7 @@ document.ready = function() {
         <button #next>&gt;</button>
         <button #toggle>Show/hide header</button>
     </div>
-    <pagecontrol header="top">
+    <pagecontrol #p1 header="top">
         <tab title="first tab" icon="fas fa-star">
             <p> first tab content </p>
             <button> test </button>
@@ -112,12 +121,10 @@ document.ready = function() {
                 <b>some</b> literal <i>HTML</i>
             </p>
         </tab>
-        <tab>
-            <p> fourth tab content </p>
-        </tab>
+        <tab src="tab4.html" icon="fas fa-star" />
         <tab src="tab5.html" />
     </pagecontrol>
-    <pagecontrol header="right">
+    <pagecontrol #p2 header="right">
         <tab title="first tab" icon="fas fa-star">
             <p> first tab content </p>
             <button> test </button>
@@ -131,12 +138,10 @@ document.ready = function() {
                 <b>some</b> literal <i>HTML</i>
             </p>
         </tab>
-        <tab>
-            <p> fourth tab content </p>
-        </tab>
+        <tab src="tab4.html" icon="fas fa-star" />
         <tab src="tab5.html" />
     </pagecontrol>
-    <pagecontrol header="bottom">
+    <pagecontrol #p3 header="bottom">
         <tab title="first tab" icon="fas fa-star">
             <p> first tab content </p>
             <button> test </button>
@@ -150,12 +155,10 @@ document.ready = function() {
                 <b>some</b> literal <i>HTML</i>
             </p>
         </tab>
-        <tab>
-            <p> fourth tab content </p>
-        </tab>
+        <tab src="tab4.html" icon="fas fa-star" />
         <tab src="tab5.html" />
     </pagecontrol>
-    <pagecontrol header="left">
+    <pagecontrol #p4 header="left">
         <tab title="first tab" icon="fas fa-star">
             <p> first tab content </p>
             <button> test </button>
@@ -169,9 +172,7 @@ document.ready = function() {
                 <b>some</b> literal <i>HTML</i>
             </p>
         </tab>
-        <tab>
-            <p> fourth tab content </p>
-        </tab>
+        <tab src="tab4.html" icon="fas fa-star" />
         <tab src="tab5.html" />
     </pagecontrol>
     <plaintext #logger />

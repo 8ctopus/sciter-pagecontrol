@@ -9,6 +9,8 @@ import {encode,decode} from "@sciter";
 
 export class TabSheet extends Element
 {
+    id2 = null;
+
     constructor()
     {
         super();
@@ -29,6 +31,8 @@ export class TabSheet extends Element
     {
         const src = this.attributes["src"] || null;
         const i   = this.elementIndex + 1;
+
+        this.id2 = `tabsheet-${i}`;
 
         let html         = "";
         let stylesetname = "";
@@ -56,10 +60,10 @@ export class TabSheet extends Element
                 const style = matches[1];
 
                 // get pagecontrol id
-                const id = this.parentElement.parentElement.id;
+                const id = this.getPageControl().id;
 
                 // set styleset name
-                stylesetname = `${id}-tabsheet-${i}`;
+                stylesetname = `${id}-` + this.getId();
 
                 // create styleset in order to inject tab style
                 let styleset = `@set ${stylesetname} { ${style} }`;
@@ -90,10 +94,24 @@ export class TabSheet extends Element
 
         // create tabsheet
         const tabsheet = (
-            <div .tabsheet id={"tabsheet-" + i} state-expanded={expanded} state-html={html} styleset={stylesetname} />
+            <div .tabsheet id={this.getId()} state-expanded={expanded} state-html={html} styleset={stylesetname} />
         );
 
         this.content(tabsheet);
+    }
+
+    /**
+     * Return parent pagecontrol
+     * @return DOM Element?
+     */
+    getPageControl()
+    {
+        return this.parentElement.parentElement;
+    }
+
+    getId()
+    {
+        return this.id2;
     }
 }
 
@@ -273,6 +291,14 @@ export class PageControl extends Element
             tabsheet.state.expanded = true;
         else
             console.error("tabsheet element does not exist");
+
+        // dispatch event
+        this.dispatchEvent(new CustomEvent("showtab", {
+            bubbles: true,
+            detail: {
+                tab: id,
+            }
+        }));
     }
 
     /**

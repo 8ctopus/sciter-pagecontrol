@@ -16,16 +16,16 @@ let pagecontrol = this.getPageControl();
 pagecontrol = "pagecontrol#" + pagecontrol.id;
 
 document.on("showtab", pagecontrol, function(event, element) {
-    if (event.detail.tab != "tabsheet-5")
+    if (event.detail.tab != "tabsheet-4")
         return;
 
-    console.log(`tab5 js executed on ${element.id}`);
+    console.log(`tab4 js executed on ${element.id}`);
 });
 
-document.on("click", pagecontrol + " button#hello", function(event, element) {
-    console.log(`tab5 button clicked`);
+document.on("click", pagecontrol + " button#hello", function() {
+    console.log("tab4 button clicked!");
 });
 
 </script>
-<p> fifth tab content </p>
+<p> fourth tab content </p>
 <button #hello> hello </button>

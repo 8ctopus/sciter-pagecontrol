@@ -27,11 +27,8 @@ export class TabSheet extends Element
      */
     render()
     {
-        const expanded = (this.attributes["selected"] == "") ? true : false;
-
         const src = this.attributes["src"] || null;
-
-        const i = this.elementIndex + 1;
+        const i   = this.elementIndex + 1;
 
         let html         = "";
         let stylesetname = "";
@@ -89,6 +86,9 @@ export class TabSheet extends Element
             }
         }
 
+        const expanded = (this.attributes["selected"] == "") ? true : false;
+
+        // create tabsheet
         const tabsheet = (
             <div .tabsheet id={"tabsheet-" + i} state-expanded={expanded} state-html={html} styleset={stylesetname} />
         );

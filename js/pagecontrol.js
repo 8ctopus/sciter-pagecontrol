@@ -107,6 +107,15 @@ export class Tab extends Element
     {
         return this.parentElement.parentElement;
     }
+
+    /**
+     * Get selector
+     * @return string
+     */
+    selector()
+    {
+        return "tab#" + this.id;
+    }
 }
 
 export class PageControl extends Element

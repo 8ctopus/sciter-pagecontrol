@@ -12,16 +12,18 @@ button {
 <script>
 
 const pagecontrol = "pagecontrol#" + this.getPageControl().id;
-const tab         = this.id;
+const tabid       = this.id;
 
 document.on("showtab", pagecontrol, function(event, element) {
-    if (event.detail.tab != tab)
+    if (event.detail.tab != tabid)
         return;
 
     console.log(`tab4 js executed on ${element.id}`);
 });
 
-document.on("click", pagecontrol + " #" + this.id + " button#hello", function() {
+const selector = this.selector();
+
+document.on("click", pagecontrol + " " + selector + " button#hello", function() {
     console.log("tab4 button clicked!");
 });
 

@@ -12,6 +12,11 @@ body {
     flow: vertical;
 }
 
+div#controls {
+    flow: horizontal;
+    border-spacing: 0.5em;
+}
+
 @import url('js/pagecontrol.css');
 
 pagecontrol {
@@ -22,6 +27,7 @@ pagecontrol {
 pagecontrol div#tabsheet-4 {
     background: cyan;
 }
+
 
 </style>
 <script>
@@ -47,7 +53,7 @@ document.ready = function() {
 </script>
 </head>
 <body>
-    <div style="flow: horizontal">
+    <div #controls>
         <button #previous>Previous</button>
         <button #next>Next</button>
         <button #toggle>Show/hide header</button>

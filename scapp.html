@@ -10,11 +10,13 @@
 
 body {
     flow: vertical;
+    border-spacing: 0.5em;
 }
 
 div#controls {
     flow: horizontal;
     border-spacing: 0.5em;
+    padding: 0.5em;
 }
 
 @import url('js/pagecontrol.css');
@@ -54,11 +56,68 @@ document.ready = function() {
 </head>
 <body>
     <div #controls>
-        <button #previous>Previous</button>
-        <button #next>Next</button>
+        <button #previous>&lt;</button>
+        <button #next>&gt;</button>
         <button #toggle>Show/hide header</button>
     </div>
+    <pagecontrol header="top">
+        <tab title="first tab">
+            <p> first tab content </p>
+            <button> test </button>
+        </tab>
+        <tab title="second tab" selected>
+            <p> second tab content </p>
+        </tab>
+        <tab title="third tab">
+            <p>
+                third tab content <br>
+                <b>some</b> literal <i>HTML</i>
+            </p>
+        </tab>
+        <tab>
+            <p> fourth tab content </p>
+        </tab>
+        <tab src="tab5.html" />
+    </pagecontrol>
     <pagecontrol header="right">
+        <tab title="first tab">
+            <p> first tab content </p>
+            <button> test </button>
+        </tab>
+        <tab title="second tab" selected>
+            <p> second tab content </p>
+        </tab>
+        <tab title="third tab">
+            <p>
+                third tab content <br>
+                <b>some</b> literal <i>HTML</i>
+            </p>
+        </tab>
+        <tab>
+            <p> fourth tab content </p>
+        </tab>
+        <tab src="tab5.html" />
+    </pagecontrol>
+    <pagecontrol header="bottom">
+        <tab title="first tab">
+            <p> first tab content </p>
+            <button> test </button>
+        </tab>
+        <tab title="second tab" selected>
+            <p> second tab content </p>
+        </tab>
+        <tab title="third tab">
+            <p>
+                third tab content <br>
+                <b>some</b> literal <i>HTML</i>
+            </p>
+        </tab>
+        <tab>
+            <p> fourth tab content </p>
+        </tab>
+        <tab src="tab5.html" />
+    </pagecontrol>
+    <pagecontrol header="left">
         <tab title="first tab">
             <p> first tab content </p>
             <button> test </button>

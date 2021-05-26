@@ -9,8 +9,6 @@ import {encode,decode} from "@sciter";
 
 export class Tab extends Element
 {
-    id2 = null;
-
     constructor()
     {
         super();
@@ -32,7 +30,8 @@ export class Tab extends Element
         const src = this.attributes["src"] || null;
         const i   = this.elementIndex + 1;
 
-        this.id2 = `tab-${i}`;
+        if (this.id == "")
+            this.setAttribute("id", `tab-${i}`);
 
         let html         = "";
         let stylesetname = "";
@@ -63,7 +62,7 @@ export class Tab extends Element
                 const id = this.getPageControl().id;
 
                 // set styleset name
-                stylesetname = `${id}-` + this.getId();
+                stylesetname = `${id}-` + this.id;
 
                 // create styleset in order to inject tab style
                 let styleset = `@set ${stylesetname} { ${style} }`;
@@ -94,7 +93,7 @@ export class Tab extends Element
 
         // create tab
         const tab = (
-            <div .tab id={this.getId()} state-expanded={expanded} state-html={html} styleset={stylesetname} />
+            <div .tab id={this.id} state-expanded={expanded} state-html={html} styleset={stylesetname} />
         );
 
         this.content(tab);
@@ -107,11 +106,6 @@ export class Tab extends Element
     getPageControl()
     {
         return this.parentElement.parentElement;
-    }
-
-    getId()
-    {
-        return this.id2;
     }
 }
 

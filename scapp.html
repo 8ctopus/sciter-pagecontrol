@@ -1,0 +1,75 @@
+<html
+    window-resizable="true"
+    window-width="400dip"
+    window-height="770dip"
+>
+<head>
+<title>sciter components demo</title>
+<style src="css/fontawesome.css" />
+<style>
+
+body {
+    flow: vertical;
+}
+
+@import url('js/pagecontrol.css');
+
+pagecontrol {
+    size: *;
+}
+
+// custom skinning of fourth tabsheet
+pagecontrol div#tabsheet-4 {
+    background: cyan;
+}
+
+</style>
+<script>
+
+let pagecontrol = document.$("pagecontrol");
+
+document.$("button#previous").on("click", function() {
+    pagecontrol.previousTab();
+});
+
+document.$("button#next").on("click", function() {
+    pagecontrol.nextTab();
+});
+
+document.$("button#toggle").on("click", function() {
+    pagecontrol.toggleHeader();
+});
+
+document.ready = function() {
+    pagecontrol.setTab("tabsheet-3");
+};
+
+</script>
+</head>
+<body>
+    <div style="flow: horizontal">
+        <button #previous>Previous</button>
+        <button #next>Next</button>
+        <button #toggle>Show/hide header</button>
+    </div>
+    <pagecontrol header="right">
+        <tab title="first tab">
+            <p> first tab content </p>
+            <button> test </button>
+        </tab>
+        <tab title="second tab" selected>
+            <p> second tab content </p>
+        </tab>
+        <tab title="third tab">
+            <p>
+                third tab content <br>
+                <b>some</b> literal <i>HTML</i>
+            </p>
+        </tab>
+        <tab>
+            <p> fourth tab content </p>
+        </tab>
+        <tab src="tab5.html" />
+    </pagecontrol>
+</body>
+</html>

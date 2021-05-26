@@ -1,0 +1,128 @@
+tab {
+    prototype: TabSheet url('pagecontrol.js');
+    display: block;
+}
+
+// expanded tab takes whole pagecontrol height
+tab > div:expanded {
+    height: 100%;
+}
+
+pagecontrol {
+    prototype: PageControl url('pagecontrol.js');
+    display: block;
+
+    /* default dimensions */
+    width: 300dip;
+    height: 100dip;
+}
+
+@set pagecontrol-base {
+    :root {
+        behavior: tabs;
+
+        size: *;
+        overflow: hidden;
+    }
+
+    /* tab header on the right or left */
+    :root.side {
+        flow: horizontal;
+    }
+
+    /* header for tabsheet caption */
+    div.header {
+        flow: horizontal;
+
+        /* show scrollbar when header to long */
+        overflow: auto;
+    }
+
+    // header on the right or left
+    :root.side > .header {
+        flow: vertical;
+        height: *;
+    }
+
+    // show / hide header
+    .hide {
+        display: none;
+    }
+
+    /* single tabsheet caption */
+    div.header > div {
+        /* not wider than max-intrinsic */
+        max-width: auto;
+        height: max-content;
+
+        padding: 3dip 8dip;
+
+        background-image: url(theme:tab-item-normal);
+        background-repeat: stretch;
+
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        white-space: nowrap;
+    }
+
+    div.header > div:hover {
+        background-image: url(theme:tab-item-hover);
+        transition: blend;
+    }
+
+    div.header > div:selected {
+        background-image: url(theme:tab-item-selected);
+    }
+
+    div.header > div:selected:hover {
+        background-image: url(theme:tab-item-selected);
+        transition: none;
+    }
+
+    div.header > div:selected:first-child,
+    div.header > div:selected:hover:first-child {
+        background-image: url(theme:tab-item-leftmost-selected);
+    }
+
+    /*
+    :root:focus div.header div:selected {
+        background-image: url(theme:tab-item-focused);
+    }
+    */
+
+    /* outline active tab content if we've gotten focus by tab */
+    :root:tab-focus > div.header > div:selected > * {
+        outline: 1dip dotted invert;
+    }
+
+    /* header icon */
+    div.header > div > i {
+        margin-right: 0.3em;
+        width: 1.6em;
+
+        text-align: center;
+    }
+
+    /* tabsheets */
+    .tabsheets {
+        size: *;
+    }
+
+    .tabsheet {
+        display: none;
+    }
+
+    .tabsheet:expanded {
+        display: block;
+
+        height: *;
+
+        background-image: url(theme:tab-panel);
+        background-repeat: stretch;
+    }
+}
+
+// override base styles here
+@set pagecontrol < pagecontrol-base {
+
+}

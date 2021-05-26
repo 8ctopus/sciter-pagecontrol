@@ -1,0 +1,25 @@
+<style>
+
+p {
+    color: green;
+}
+
+button {
+    color: red;
+}
+
+</style>
+<script>
+
+function onTabShow()
+{
+    console.log("tab js executed!");
+}
+
+document.on("click", "button#hello", function() {
+    console.log("button clicked!");
+});
+
+</script>
+<p> fifth tab content </p>
+<button #hello> hello </button>

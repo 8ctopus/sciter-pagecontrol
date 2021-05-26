@@ -22,7 +22,7 @@ document.on("showtab", pagecontrol, function(event, element) {
     console.log(`tab4 js executed on ${element.id}`);
 });
 
-document.on("click", pagecontrol + " button#hello", function() {
+document.on("click", pagecontrol + " #" + this.id + " button#hello", function() {
     console.log("tab4 button clicked!");
 });
 

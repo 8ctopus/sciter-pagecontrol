@@ -110,11 +110,24 @@ export class Tab extends Element
 
     /**
      * Get selector
+     * @param string selector tab|pagecontrol|both
      * @return string
      */
-    selector()
+    selector(selector)
     {
-        return "tab#" + this.id;
+        const tab         = "tab#" + this.id;
+        const pagecontrol = "pagecontrol#" + this.getPageControl().id;
+
+        if (selector == "tab")
+            return tab;
+        else
+        if (selector == "pagecontrol")
+            return pagecontrol;
+        else
+        if (selector == "both")
+            return pagecontrol + " " + tab;
+        else
+            console.error(`unknown selector ${selector}`);
     }
 }
 

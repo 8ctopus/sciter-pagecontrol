@@ -389,4 +389,16 @@ export class PageControl extends Element
 
         header.classList.toggle("hide");
     }
+
+    /**
+     * Get element selector
+     * @return string
+     */
+    selector()
+    {
+        if (this.id == "")
+            return "pagecontrol";
+
+        return "pagecontrol#" + this.id;
+    }
 }

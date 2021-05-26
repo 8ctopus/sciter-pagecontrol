@@ -11,12 +11,11 @@ button {
 </style>
 <script>
 
-let pagecontrol = this.getPageControl();
-
-pagecontrol = "pagecontrol#" + pagecontrol.id;
+const pagecontrol = "pagecontrol#" + this.getPageControl().id;
+const tab         = this.id;
 
 document.on("showtab", pagecontrol, function(event, element) {
-    if (event.detail.tab != "tab-4")
+    if (event.detail.tab != tab)
         return;
 
     console.log(`tab4 js executed on ${element.id}`);

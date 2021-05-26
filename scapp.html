@@ -67,6 +67,12 @@ document.ready = function() {
         };
     })();
 
+    // add event listener
+    document.on("click dblclick expand collapse", function(event, element) {
+        const log = document.$("plaintext");
+        log.plaintext.appendLine(`${event.type} on ${element.tag}${element.id}`);
+    });
+
     let pagecontrol = document.$("pagecontrol");
 
     document.$("button#previous").on("click", function() {

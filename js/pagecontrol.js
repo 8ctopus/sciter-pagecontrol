@@ -7,7 +7,7 @@
 import * as sys from "@sys";
 import {encode,decode} from "@sciter";
 
-export class TabSheet extends Element
+export class Tab extends Element
 {
     id2 = null;
 
@@ -32,7 +32,7 @@ export class TabSheet extends Element
         const src = this.attributes["src"] || null;
         const i   = this.elementIndex + 1;
 
-        this.id2 = `tabsheet-${i}`;
+        this.id2 = `tab-${i}`;
 
         let html         = "";
         let stylesetname = "";
@@ -92,12 +92,12 @@ export class TabSheet extends Element
 
         const expanded = (this.attributes["selected"] == "") ? true : false;
 
-        // create tabsheet
-        const tabsheet = (
-            <div .tabsheet id={this.getId()} state-expanded={expanded} state-html={html} styleset={stylesetname} />
+        // create tab
+        const tab = (
+            <div .tab id={this.getId()} state-expanded={expanded} state-html={html} styleset={stylesetname} />
         );
 
-        this.content(tabsheet);
+        this.content(tab);
     }
 
     /**
@@ -138,8 +138,8 @@ export class PageControl extends Element
         // create tab headers
         const headers = this.createHeaders();
 
-        // create tabsheets
-        const tabsheets = this.createTabsheets();
+        // create tabs container
+        const tabs = this.createTabs();
 
         // header position
         const position = this.attributes["header"] ?? "";
@@ -168,8 +168,8 @@ export class PageControl extends Element
         // create pagecontrol
         const pagecontrol = (
             <div id={id} class={classes} styleset={__DIR__ + "../css/pagecontrol.css#pagecontrol"}>
-                {headersFirst ? headers : tabsheets}
-                {headersFirst ? tabsheets : headers}
+                {headersFirst ? headers : tabs}
+                {headersFirst ? tabs : headers}
             </div>
         );
 
@@ -202,7 +202,7 @@ export class PageControl extends Element
             const selected = (element.attributes["selected"] == "") ? true : false;
 
             return (
-                <div panel={"tabsheet-" + i} state-selected={selected}>{icon}{caption}</div>
+                <div panel={"tab-" + i} state-selected={selected}>{icon}{caption}</div>
             );
         });
 
@@ -216,21 +216,21 @@ export class PageControl extends Element
     }
 
     /**
-     * Create tabsheets
+     * Create tabs
      * @return JSX expression
      */
-    createTabsheets()
+    createTabs()
     {
         // get tabs
         const tabs = this.innerHTML;
 
         return (
-            <div .tabsheets state-html={tabs} />
+            <div .tabs state-html={tabs} />
         );
     }
 
     /**
-     * Tabsheet header click event
+     * Tab header click event
      * @param string event
      * @param element clicked element
      */
@@ -239,13 +239,13 @@ export class PageControl extends Element
         // unselect all headers
         this.unselectHeaders();
 
-        // collapse all tabs
-        this.collapseTabs();
+        // collapse tab
+        this.collapseTab();
 
         // select clicked header
         element.state.selected = true;
 
-        // get tabsheet to expand
+        // get tab to expand
         const id = element.getAttribute("panel");
 
         this.expandTab(id);
@@ -265,16 +265,16 @@ export class PageControl extends Element
     }
 
     /**
-     * Collapse all tabs
+     * Collapse tab
      * @return void
      */
-    collapseTabs()
+    collapseTab()
     {
-        const tabsheet = this.querySelector("div.tabsheet:expanded");
+        const tab = this.$("div.tab:expanded");
 
-        if (tabsheet != null)
-            // hide expanded tabsheet
-            tabsheet.state.expanded = false;
+        if (tab != null)
+            // hide expanded tabs
+            tab.state.expanded = false;
     }
 
     /**
@@ -284,13 +284,13 @@ export class PageControl extends Element
      */
     expandTab(id)
     {
-        let tabsheet = this.$("div.tabsheet#" + id);
+        let tab = this.$("div.tab#" + id);
 
-        if (tabsheet != null)
-            // expand tabsheet
-            tabsheet.state.expanded = true;
+        if (tab != null)
+            // expand tab
+            tab.state.expanded = true;
         else
-            console.error("tabsheet element does not exist");
+            console.error("tab does not exist");
 
         // dispatch event
         this.dispatchEvent(new CustomEvent("showtab", {
@@ -311,8 +311,8 @@ export class PageControl extends Element
         // unselect all headers
         this.unselectHeaders();
 
-        // collapse all tabs
-        this.collapseTabs();
+        // collapse tab
+        this.collapseTab();
 
         // expand tab
         this.expandTab(id);

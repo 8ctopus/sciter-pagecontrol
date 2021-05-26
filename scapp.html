@@ -34,23 +34,55 @@ pagecontrol div#tabsheet-4 {
 </style>
 <script>
 
-let pagecontrol = document.$("pagecontrol");
-
-document.$("button#previous").on("click", function() {
-    pagecontrol.previousTab();
-});
-
-document.$("button#next").on("click", function() {
-    pagecontrol.nextTab();
-});
-
-document.$("button#toggle").on("click", function() {
-    pagecontrol.toggleHeader();
-});
-
 document.ready = function() {
+    /**
+     * redirect console logging to plaintext element
+     */
+    (function() {
+        // get console log method address
+        const log = console.log;
+
+        // replace original console log
+        console.log = function(message) {
+            document.$("#logger").plaintext.appendLine(message);
+            log.apply(console, arguments);
+        };
+
+        // get console warn method address
+        const warn = console.warn;
+
+        // replace original console log
+        console.warn = function(message) {
+            document.$("#logger").plaintext.appendLine(message);
+            warn.apply(console, arguments);
+        };
+
+        // get console error method address
+        const error = console.error;
+
+        // replace original console log
+        console.error = function(message) {
+            document.$("#logger").plaintext.appendLine(message);
+            error.apply(console, arguments);
+        };
+    })();
+
+    let pagecontrol = document.$("pagecontrol");
+
+    document.$("button#previous").on("click", function() {
+        pagecontrol.previousTab();
+    });
+
+    document.$("button#next").on("click", function() {
+        pagecontrol.nextTab();
+    });
+
+    document.$("button#toggle").on("click", function() {
+        pagecontrol.toggleHeader();
+    });
+
     pagecontrol.setTab("tabsheet-3");
-};
+}
 
 </script>
 </head>
@@ -136,5 +168,6 @@ document.ready = function() {
         </tab>
         <tab src="tab5.html" />
     </pagecontrol>
+    <plaintext #logger />
 </body>
 </html>

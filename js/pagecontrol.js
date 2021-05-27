@@ -268,12 +268,45 @@ export class PageControl extends Element
     }
 
     /**
+     * Set tab by id
+     * @param string tab id
+     * @return void
+     */
+    setTab(id)
+    {
+        const selector = `div.header div[panel="${id}"]`;
+
+        if (!selector) {
+            console.error(`setTab invalid id ${id}`);
+            return;
+        }
+
+        const header = this.$(selector);
+
+        // unselect all headers
+        this.unselectHeaders();
+
+        // collapse tab
+        this.collapseTab();
+
+        header.state.selected = true;
+
+        // expand tab
+        this.expandTab(id);
+    }
+
+    /**
      * Unselect all headers
      * @return void
      */
     unselectHeaders()
     {
         const header = this.$("div.header");
+
+        if (!header) {
+            console.error("header does not exist");
+            return;
+        }
 
         // loop through header tabs
         for (let child of header.children)
@@ -288,9 +321,13 @@ export class PageControl extends Element
     {
         const tab = this.$("div.tab:expanded");
 
-        if (tab != null)
-            // hide expanded tabs
-            tab.state.expanded = false;
+        if (!tab) {
+            //console.log("no expanded tab");
+            return;
+        }
+
+        // hide expanded tabs
+        tab.state.expanded = false;
     }
 
     /**
@@ -300,13 +337,15 @@ export class PageControl extends Element
      */
     expandTab(id)
     {
-        let tab = this.$("div.tab#" + id);
+        const tab = this.$("div.tab#" + id);
 
-        if (tab != null)
-            // expand tab
-            tab.state.expanded = true;
-        else
+        if (!tab) {
             console.error("tab does not exist");
+            return;
+        }
+
+        // expand tab
+        tab.state.expanded = true;
 
         // dispatch event
         this.dispatchEvent(new CustomEvent("showtab", {
@@ -315,28 +354,6 @@ export class PageControl extends Element
                 tab: id,
             }
         }));
-    }
-
-    /**
-     * Set tab by id
-     * @param string tab id
-     * @return void
-     */
-    setTab(id)
-    {
-        // unselect all headers
-        this.unselectHeaders();
-
-        // collapse tab
-        this.collapseTab();
-
-        // expand tab
-        this.expandTab(id);
-
-        // select header
-        const header = this.$("div.header div[panel=" + id + "]");
-
-        header.state.selected = true;
     }
 
     /**

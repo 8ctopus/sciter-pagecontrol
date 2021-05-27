@@ -17,6 +17,8 @@ document.on("showtab", this.selector("pagecontrol"), function(event, element) {
     if (event.detail.tab != tabid)
         return;
 
+    console.log("Show tab - " + element.$("div.tabs tab#" + tabid).getAttribute("title"));
+
     console.log(`tab5 js executed on ${element.id}`);
 });
 

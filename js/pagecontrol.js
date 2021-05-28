@@ -39,7 +39,7 @@ export class Tab extends Element
         if (!src)
             html = this.innerHTML;
         else
-        if (sys.fs.$lstat(src) == null)
+        if (!sys.fs.$lstat(src))
             console.error(`tab src does not exist ${src}`);
         else {
             // read file
@@ -277,7 +277,7 @@ export class PageControl extends Element
         const selector = `div.header div[panel="${id}"]`;
 
         if (!selector) {
-            console.error(`setTab invalid id ${id}`);
+            console.error(`invalid tab id ${id}`);
             return;
         }
 
@@ -293,6 +293,32 @@ export class PageControl extends Element
 
         // expand tab
         this.expandTab(id);
+    }
+
+    /**
+     * Expand tab
+     * @param string tab id
+     * @return void
+     */
+    expandTab(id)
+    {
+        const tab = this.$("div.tab#" + id);
+
+        if (!tab) {
+            console.error("tab does not exist");
+            return;
+        }
+
+        // expand tab
+        tab.state.expanded = true;
+
+        // dispatch event
+        this.dispatchEvent(new CustomEvent("showtab", {
+            bubbles: true,
+            detail: {
+                tab: id,
+            }
+        }));
     }
 
     /**
@@ -331,29 +357,24 @@ export class PageControl extends Element
     }
 
     /**
-     * Expand tab
-     * @param string tab id
+     * Show previous or next tab
+     * @param int +1 next, -1 previous
      * @return void
      */
-    expandTab(id)
+    previousNextTab(direction)
     {
-        const tab = this.$("div.tab#" + id);
+        // get selected header
+        const header = this.$("div.header div:selected");
 
-        if (!tab) {
-            console.error("tab does not exist");
-            return;
+        let next = (direction == +1) ? header.nextElementSibling : header.previousElementSibling;
+
+        if (!next) {
+            const parent = header.parentElement;
+
+            next = (direction == +1) ? parent.firstChild : parent.lastChild;
         }
 
-        // expand tab
-        tab.state.expanded = true;
-
-        // dispatch event
-        this.dispatchEvent(new CustomEvent("showtab", {
-            bubbles: true,
-            detail: {
-                tab: id,
-            }
-        }));
+        this.setTab(next.attributes["panel"]);
     }
 
     /**
@@ -375,27 +396,6 @@ export class PageControl extends Element
     }
 
     /**
-     * Show previous or next tab
-     * @param int +1 next, -1 previous
-     * @return void
-     */
-    previousNextTab(direction)
-    {
-        // get selected header
-        const header = this.$("div.header div:selected");
-
-        let next = (direction == +1) ? header.nextElementSibling : header.previousElementSibling;
-
-        if (next == null) {
-            const parent = header.parentElement;
-
-            next = (direction == +1) ? parent.firstChild : parent.lastChild;
-        }
-
-        this.setTab(next.attributes["panel"]);
-    }
-
-    /**
      * Toggle header visibility
      * @return void
      */
@@ -403,6 +403,11 @@ export class PageControl extends Element
     {
         // get header
         const header = this.$("div.header");
+
+        if (!header) {
+            console.error("header does not exist");
+            return;
+        }
 
         header.classList.toggle("hide");
     }

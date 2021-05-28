@@ -4,6 +4,14 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ![sciter pagecontrol](screenshot.png)
 
+## features
+
+- load tab contents inline or from external source
+- when loaded from external source, tab can its own css and js
+- support for fontawesome icons in tab header
+- header can be shown on any side and can also be hidden
+- select and iterate through tabs from code
+
 ## get started
 
 - git clone the repository

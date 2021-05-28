@@ -19,8 +19,6 @@ pagecontrol {
 
 @set pagecontrol-base {
     :root {
-        behavior: tabs;
-
         size: *;
         overflow: hidden;
     }

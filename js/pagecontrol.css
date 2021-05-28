@@ -102,15 +102,15 @@ pagecontrol {
     }
 
     /* tabs */
-    .tabs {
+    div.tabs {
         size: *;
     }
 
-    .tab {
+    div.tab {
         display: none;
     }
 
-    .tab:expanded {
+    div.tab:expanded {
         display: block;
 
         height: *;

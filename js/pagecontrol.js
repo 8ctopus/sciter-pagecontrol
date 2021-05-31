@@ -397,9 +397,10 @@ export class PageControl extends Element
 
     /**
      * Toggle header visibility
+     * @param bool optional visible
      * @return void
      */
-    toggleHeader()
+    toggleHeader(visible)
     {
         // get header
         const header = this.$("div.header");
@@ -409,7 +410,13 @@ export class PageControl extends Element
             return;
         }
 
-        header.classList.toggle("hide");
+        if (typeof visible === "undefined")
+            header.classList.toggle("hide");
+        else
+        if (visible)
+            header.classList.remove("hide");
+        else
+            header.classList.add("hide");
     }
 
     /**

@@ -183,7 +183,7 @@ export class PageControl extends Element
 
         // create pagecontrol
         const pagecontrol = (
-            <div id={id} class={classes} styleset={__DIR__ + "../css/pagecontrol.css#pagecontrol"}>
+            <div id={id} class={classes} styleset={__DIR__ + "pagecontrol.css#pagecontrol"}>
                 {headersFirst ? headers : tabs}
                 {headersFirst ? tabs : headers}
             </div>

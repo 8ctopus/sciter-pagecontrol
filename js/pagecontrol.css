@@ -12,6 +12,8 @@ pagecontrol {
     prototype: PageControl url('pagecontrol.js');
     display: block;
 
+    style-set: pagecontrol;
+
     /* default dimensions */
     width: 300dip;
     height: 100dip;
@@ -24,26 +26,27 @@ pagecontrol {
     }
 
     /* tab header on the right or left */
-    :root.side {
+    div.side {
         flow: horizontal;
+        height: *;
     }
 
     /* header for tab caption */
     div.header {
         flow: horizontal;
 
-        /* show scrollbar when header to long */
+        /* show scrollbar when header too long */
         overflow: auto;
     }
 
     // header on the right or left
-    :root.side > .header {
+    div.side > div.header {
         flow: vertical;
         height: *;
     }
 
     // show / hide header
-    .hide {
+    div.hide {
         display: none;
     }
 

@@ -25,6 +25,10 @@ pagecontrol {
         overflow: hidden;
     }
 
+    :root > div {
+        size: *;
+    }
+
     /* tab header on the right or left */
     div.side {
         flow: horizontal;

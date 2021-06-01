@@ -183,7 +183,7 @@ export class PageControl extends Element
 
         // create pagecontrol
         const pagecontrol = (
-            <div id={id} class={classes} >
+            <div id={id} class={classes}>
                 {headersFirst ? headers : tabs}
                 {headersFirst ? tabs : headers}
             </div>

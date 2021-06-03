@@ -66,7 +66,7 @@ pagecontrol div#tab-4 {
     };
 })();
 
-document.ready = function() {
+document.on("ready", function() {
     // add event listener
     document.on("showtab expand collapse", function(event, element) {
         const log = document.$("plaintext");
@@ -97,7 +97,7 @@ document.ready = function() {
     });
 
     pagecontrol.setTab("tab-3");
-}
+});
 
 </script>
 </head>

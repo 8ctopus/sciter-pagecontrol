@@ -26,6 +26,24 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - click `CTRL + SHIFT + left click` to inspect an element
 - note: the clock component forces the DOM to refresh every second, remove the component if you want to inspect in peace.
 
+## install
+
+- add the `src` dir to your project
+- then in your code
+```html
+<style src="src/pagecontrol.css" />
+<body>
+    <pagecontrol header="top">
+        <tab title="first tab" selected>
+            <p> first tab content </p>
+            <button> test </button>
+        </tab>
+        <tab title="2nd tab">
+            <button> another button </button>
+        </tab>
+    </pagecontrol>
+```
+
 # known issues
 
 - tab height issue

@@ -12,10 +12,11 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - header can be shown on any side and can also be hidden
 - select and iterate through tabs from code
 
-## get started
+## demo
 
 - git clone the repository
-- run `install.bat` to download the latest sciter binaries and library
+- run `install.bat` to download the latest sciter binaries, library and the sciter package manager
+- install packages `php spm.phar install`
 - start `scapp.exe`
 - to refresh the app after changes to the html/css click `F5`
 
@@ -48,4 +49,3 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 - tab height issue
 - JSX is not supported inside tabs js
-- 

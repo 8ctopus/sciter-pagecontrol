@@ -268,11 +268,11 @@ export class PageControl extends Element
     }
 
     /**
-     * Set tab by id
+     * Show tab by id
      * @param string tab id
      * @return void
      */
-    setTab(id)
+    showTab(id)
     {
         const selector = `div.header div[panel="${id}"]`;
 
@@ -374,7 +374,7 @@ export class PageControl extends Element
             next = (direction == +1) ? parent.firstChild : parent.lastChild;
         }
 
-        this.setTab(next.attributes["panel"]);
+        this.showTab(next.attributes["panel"]);
     }
 
     /**

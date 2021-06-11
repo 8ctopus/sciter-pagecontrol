@@ -1,7 +1,7 @@
 <html
     window-resizable="true"
     window-width="400dip"
-    window-height="770dip"
+    window-height="850dip"
 >
 <head>
 <title>sciter pagecontrol demo</title>
@@ -30,6 +30,9 @@ pagecontrol div#tab-4 {
     background: cyan;
 }
 
+plaintext#logger {
+    height: 25%;
+}
 
 </style>
 <script>
@@ -96,7 +99,7 @@ document.on("ready", function() {
         pagecontrol.toggleHeader();
     });
 
-    pagecontrol.setTab("tab-3");
+    pagecontrol.showTab("tab-3");
 });
 
 </script>

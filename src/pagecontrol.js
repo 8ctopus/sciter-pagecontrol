@@ -91,6 +91,10 @@ export class Tab extends Element
 
         const expanded = (this.attributes["selected"] == "") ? true : false;
 
+        // if tab is selected, show it (event doesn't trigger at this point)
+        if (expanded)
+            this.classList.add("block");
+
         // create tab
         const tab = (
             <div .tab id={this.id} state-expanded={expanded} state-html={html} styleset={stylesetname} />

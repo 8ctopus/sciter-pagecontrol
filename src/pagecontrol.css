@@ -1,10 +1,13 @@
 tab {
     prototype: Tab url('pagecontrol.js');
+
+    /* tabs are hidden by default */
     display: none;
 
     height: *;
 }
 
+/* class to show the tab on expand */
 .block {
     display: block;
 }
@@ -14,7 +17,10 @@ tab div.tab {
 
     padding: 5dip;
 
-    //DEBUG background: cyan;
+    /*
+    // for debugging
+    background: cyan;
+    */
 }
 
 pagecontrol {

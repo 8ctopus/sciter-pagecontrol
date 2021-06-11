@@ -218,7 +218,7 @@ export class PageControl extends Element
             const selected = (element.attributes["selected"] == "") ? true : false;
 
             return (
-                <div panel={"tab-" + i} state-selected={selected}>{icon}{caption}</div>
+                <div panel={"tab-" + i} state-selected={selected} data-i18n>{icon}{caption}</div>
             );
         });
 

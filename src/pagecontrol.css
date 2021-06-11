@@ -9,10 +9,19 @@ tab {
     display: block;
 }
 
-// expanded tab takes whole pagecontrol height
-tab > div:expanded {
-    height: 100%;
+tab div.tab {
+    display: none;
 }
+
+tab div.tab:expanded {
+    display: block;
+
+    height: *;
+
+    background-image: url(theme:tab-panel);
+    background-repeat: stretch;
+}
+
 
 pagecontrol {
     prototype: PageControl url('pagecontrol.js');
@@ -117,19 +126,7 @@ pagecontrol {
     /* tabs */
     div.tabs {
         size: *;
-    }
-
-    div.tab {
-        display: none;
-    }
-
-    div.tab:expanded {
-        display: block;
-
-        height: *;
-
-        background-image: url(theme:tab-panel);
-        background-repeat: stretch;
+        border: 1dip solid red;
     }
 }
 

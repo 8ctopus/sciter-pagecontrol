@@ -1,5 +1,11 @@
 tab {
     prototype: Tab url('pagecontrol.js');
+    display: none;
+
+    height: *;
+}
+
+.block {
     display: block;
 }
 

@@ -129,6 +129,16 @@ export class Tab extends Element
         else
             console.error(`unknown selector ${selector}`);
     }
+
+    ["on expand at tab"](event, element)
+    {
+        this.classList.add("block");
+    }
+
+    ["on collapse at tab"](event, element)
+    {
+        this.classList.remove("block");
+    }
 }
 
 export class PageControl extends Element
@@ -313,6 +323,9 @@ export class PageControl extends Element
         tab.state.expanded = true;
 
         // dispatch event
+        tab.dispatchEvent(new Event("expand", { bubbles: true}));
+
+        // dispatch event
         this.dispatchEvent(new CustomEvent("showtab", {
             bubbles: true,
             detail: {
@@ -354,6 +367,9 @@ export class PageControl extends Element
 
         // hide expanded tabs
         tab.state.expanded = false;
+
+        // dispatch event
+        tab.dispatchEvent(new Event("collapse", { bubbles: true}));
     }
 
     /**

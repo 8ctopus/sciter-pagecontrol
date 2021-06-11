@@ -47,5 +47,4 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 # known issues
 
-- tab height issue
 - JSX is not supported inside tabs js

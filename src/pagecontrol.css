@@ -15,6 +15,7 @@ tab {
 tab div.tab {
     height: *;
 
+    margin: 0;
     padding: 5dip;
 
     /*

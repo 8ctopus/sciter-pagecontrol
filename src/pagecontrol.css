@@ -10,18 +10,12 @@ tab {
 }
 
 tab div.tab {
-    display: none;
-}
-
-tab div.tab:expanded {
-    display: block;
-
     height: *;
 
-    background-image: url(theme:tab-panel);
-    background-repeat: stretch;
-}
+    padding: 5dip;
 
+    //DEBUG background: cyan;
+}
 
 pagecontrol {
     prototype: PageControl url('pagecontrol.js');
@@ -126,7 +120,7 @@ pagecontrol {
     /* tabs */
     div.tabs {
         size: *;
-        border: 1dip solid red;
+        border: 1dip solid rgb(230,230,230);
     }
 }
 

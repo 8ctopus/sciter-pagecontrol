@@ -9,26 +9,16 @@ button {
 }
 
 </style>
-<script>
+<script type="module">
 
-const tabid = this.id;
+export function loadTab(tabid, tab)
+{
+    console.log("Load tab - " + tab.selector("both"));
 
-document.on("showtab", this.selector("pagecontrol"), function(event, element) {
-    if (event.detail.tab != tabid)
-        return;
-
-    const tab = element.$("div.tabs tab#" + tabid);
-
-    const name = tab.getAttribute("title") ?? tab.id;
-
-    console.log(`Show tab - ${name}`);
-
-    console.log(`tab5 js executed on ${element.id}`);
-});
-
-document.on("click", this.selector("both") + " button#hello", function() {
-    console.log(`tab5 button clicked!`);
-});
+    document.on("click", tab.selector("both") + " button#hello", function() {
+        console.log(`tab5 button clicked!`);
+    });
+}
 
 </script>
 <p> fifth tab content </p>

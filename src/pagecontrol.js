@@ -75,7 +75,7 @@ export class Tab extends Element
             }
 
             // search src for script section
-            matches = html.match(/<script>([^<]*?)<\/script>/);
+            matches = html.match(/<script[^>]*?>([^<]*?)<\/script>/);
 
             if (matches != null) {
                 // remove script from html
@@ -84,8 +84,14 @@ export class Tab extends Element
                 // get script
                 const script = matches[1];
 
-                // execute tab script
-                eval(script);
+                // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
+                // source: https://2ality.com/2019/10/eval-via-import.html
+                // html encode javascript
+                const encodedJs = encodeURIComponent(script);
+                const dataUri   = 'data:text/javascript;charset=utf-8,'
+                    + encodedJs;
+
+                this.loadTabScript(dataUri);
             }
         }
 
@@ -101,6 +107,23 @@ export class Tab extends Element
         );
 
         this.content(tab);
+    }
+
+    /**
+     * Load tab script
+     * @param string dataUri
+     */
+    async loadTabScript(dataUri)
+    {
+        // load tab script
+        await import(dataUri)
+            .then(module => {
+                // execute tab script
+                module.loadTab(this.id, this);
+            })
+            .catch(error => {
+                console.error("Load tab script - FAILED - " + error.message);
+            });
     }
 
     /**

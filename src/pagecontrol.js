@@ -185,6 +185,9 @@ export class PageControl extends Element
      */
     componentDidMount()
     {
+        // save original tabs html, will be replaced with more complex <div.header><div.tabs>tabs html
+        // if not saved, createTabs() may use incorrect or partial html
+        this.tabsHtml = this.innerHTML;
         this.render();
     }
 
@@ -280,8 +283,8 @@ export class PageControl extends Element
      */
     createTabs()
     {
-        // get tabs
-        const tabs = this.innerHTML;
+        // get tabs from html (we will replace with custom html to add header)
+        const tabs = this.tabsHtml;
 
         return (
             <div .tabs state-html={tabs} />

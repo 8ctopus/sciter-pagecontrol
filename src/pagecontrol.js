@@ -30,6 +30,7 @@ export class Tab extends Element
         const src = this.attributes["src"] || null;
         const i   = this.elementIndex + 1;
 
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         if (this.id == "")
             this.setAttribute("id", `tab-${i}`);
 
@@ -88,7 +89,7 @@ export class Tab extends Element
                 // source: https://2ality.com/2019/10/eval-via-import.html
                 // html encode javascript
                 const encodedJs = encodeURIComponent(script);
-                const dataUri   = 'data:text/javascript;charset=utf-8,'
+                const dataUri = 'data:text/javascript;charset=utf-8,'
                     + encodedJs;
 
                 this.loadTabScript(dataUri);
@@ -142,6 +143,7 @@ export class Tab extends Element
      */
     selector(selector)
     {
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         const tab         = "tab#" + this.id;
         const pagecontrol = "pagecontrol#" + this.getPageControl().id;
 
@@ -170,9 +172,12 @@ export class Tab extends Element
 
 export class PageControl extends Element
 {
+    static classInstanceCounter = 0;
+
     constructor()
     {
         super();
+        this.controlInstanceNumber = ++PageControl.classInstanceCounter;
     }
 
     /**
@@ -216,7 +221,7 @@ export class PageControl extends Element
         }
 
         // avoid conflicts between tab stylesets when several pagecontrol exist
-        const id = this.attributes["id"] ?? "pagecontrol-" + this.elementIndex + 1;
+        const id = this.mainDivId()
 
         // create pagecontrol
         const pagecontrol = (
@@ -235,6 +240,7 @@ export class PageControl extends Element
      */
     createHeaders()
     {
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         // get tabs
         const tabs = this.$$("tab");
 
@@ -311,10 +317,10 @@ export class PageControl extends Element
      */
     showTab(id)
     {
-        const selector = `div.header div[panel="${id}"]`;
+        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
 
         if (!selector) {
-            console.error(`invalid tab id ${id}`);
+            console.error(`invalid tab id ${id} - ` + selector);
             return;
         }
 
@@ -339,10 +345,12 @@ export class PageControl extends Element
      */
     expandTab(id)
     {
-        const tab = this.$("div.tab#" + id);
+        // TODO simplify selector, must know how tab is organized, tab must know it
+        const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id + ` > div.tab#`+ id;
+        const tab = this.$(selector);
 
         if (!tab) {
-            console.error("tab does not exist");
+            console.error("tab does not exist - " + selector);
             return;
         }
 
@@ -367,7 +375,7 @@ export class PageControl extends Element
      */
     unselectHeaders()
     {
-        const header = this.$("div.header");
+        const header = this.$(this.mainDivSelector() + ` > div.header`);
 
         if (!header) {
             console.error("header does not exist");
@@ -385,7 +393,8 @@ export class PageControl extends Element
      */
     collapseTab()
     {
-        const tab = this.$("div.tab:expanded");
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
+        const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab > div.tab:expanded`);
 
         if (!tab) {
             //console.log("no expanded tab");
@@ -406,8 +415,9 @@ export class PageControl extends Element
      */
     previousNextTab(direction)
     {
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         // get selected header
-        const header = this.$("div.header div:selected");
+        const header = this.$(this.mainDivSelector() + ` > div.header > div:selected`);
 
         let next = (direction == +1) ? header.nextElementSibling : header.previousElementSibling;
 
@@ -446,10 +456,11 @@ export class PageControl extends Element
     toggleHeader(visible)
     {
         // get header
-        const header = this.$("div.header");
+        const selector = this.mainDivSelector() + ` > div.header`;
+        const header = this.$(selector);
 
         if (!header) {
-            console.error("header does not exist");
+            console.error("header does not exist - " + selector);
             return;
         }
 
@@ -468,9 +479,21 @@ export class PageControl extends Element
      */
     selector()
     {
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         if (this.id == "")
             return "pagecontrol";
 
         return "pagecontrol#" + this.id;
+    }
+
+    mainDivId()
+    {
+        // avoid conflicts between tab stylesets when several pagecontrol exist (even recursive)
+        return this.attributes["id"] ?? "pagecontrol-" + this.controlInstanceNumber;
+    }
+
+    mainDivSelector()
+    {
+        return `pagecontrol > div#` + this.mainDivId();
     }
 }

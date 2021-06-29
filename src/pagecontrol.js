@@ -118,11 +118,11 @@ export class Tab extends Element
         // load tab script
         await import(dataUri)
             .then(module => {
-                // execute tab script
-                module.loadTab(this.id, this);
+                // initialize tab
+                module.initTab(this.id, this);
             })
             .catch(error => {
-                console.error("Load tab script - FAILED - " + error.message);
+                console.error("Init tab - FAILED - " + error.message);
             });
     }
 

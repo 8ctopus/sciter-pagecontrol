@@ -11,9 +11,9 @@ button {
 </style>
 <script type="module">
 
-export function loadTab(tabid, tab)
+export function initTab(tabid, tab)
 {
-    console.log("Load tab - " + tab.selector("both"));
+    console.log("Init tab - " + tab.selector("both"));
 
     document.on("click", tab.selector("both") + " button#hello", function() {
         console.log("tab4 button clicked!");

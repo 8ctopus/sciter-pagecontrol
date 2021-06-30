@@ -35,63 +35,15 @@ export class Tab extends Element
             this.setAttribute("id", `tab-${i}`);
 
         let html         = "";
-        let stylesetname = "";
 
         if (!src)
             html = this.innerHTML;
         else
-        if (1)
-            // include source
-            html = `<include src="` + src + `"/>`;
-        else
         if (!sys.fs.$lstat(src))
             console.error(`tab src does not exist ${src}`);
-        else {
-            // read file
-            const buffer = sys.fs.$readfile(src);
-
-            // decode buffer
-            html = decode(buffer, "utf-8");
-
-            // search src for css style section
-            let matches = html.match(/<style>([^<]*?)<\/style>/);
-
-            if (matches != null) {
-                // remove style from html
-                html = html.replace(matches[0], "");
-
-                // get style
-                const style = matches[1];
-
-                // get pagecontrol id
-                const id = this.getPageControl().id;
-
-                // set styleset name
-                stylesetname = `${id}-` + this.id;
-
-                // create styleset in order to inject tab style
-                let styleset = `@set ${stylesetname} { ${style} }`;
-
-                // inject styleset in head
-                document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
-
-                // set styleset name for component
-                stylesetname = `#${stylesetname}`;
-            }
-
-            // search src for script section
-            matches = html.match(/<script[^>]*?>([^<]*?)<\/script>/);
-
-            if (matches != null) {
-                // remove script from html
-                html = html.replace(matches[0], "");
-
-                // get script
-                const script = matches[1];
-
-                this.loadTabScript(script, src);
-            }
-        }
+        else
+            // include source
+            html = `<include src="` + src + `"/>`;
 
         const expanded = (this.attributes["selected"] == "") ? true : false;
 
@@ -101,7 +53,7 @@ export class Tab extends Element
 
         // create tab
         const tab = (
-            <div .tab id={this.id} state-expanded={expanded} state-html={html} styleset={stylesetname} />
+            <div .tab id={this.id} state-expanded={expanded} state-html={html} />
         );
 
         this.content(tab);
@@ -109,7 +61,7 @@ export class Tab extends Element
         // TODO get all STYLE tags
         // TODO see how to process includes
 
-        // load SCRIPT tag from loaded doc
+        // load SCRIPT tag from loaded element
         let styleEl = this.$("style");
 
         if (styleEl) {
@@ -120,7 +72,7 @@ export class Tab extends Element
             const id = this.getPageControl().id;
 
             // set styleset name
-            stylesetname = `${id}-` + this.id;
+            let stylesetname = `${id}-` + this.id;
 
             // create styleset in order to inject tab style
             let styleset = `@set ${stylesetname} { ${style} }`;

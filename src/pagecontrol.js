@@ -34,7 +34,7 @@ export class Tab extends Element
         if (this.id == "")
             this.setAttribute("id", `tab-${i}`);
 
-        let html         = "";
+        let html = "";
 
         if (!src)
             html = this.innerHTML;
@@ -499,12 +499,20 @@ export class PageControl extends Element
         return "pagecontrol#" + this.id;
     }
 
+    /**
+     * Get main div id
+     * @return string
+     */
     mainDivId()
     {
-        // avoid conflicts between tab stylesets when several pagecontrol exist (even recursive)
+        // avoid conflicts between tab stylesets when several pagecontrols exist (even recursive)
         return this.attributes["id"] ?? "pagecontrol-" + this.controlInstanceNumber;
     }
 
+    /**
+     * Get main div selector
+     * @return string
+     */
     mainDivSelector()
     {
         return `pagecontrol > div#` + this.mainDivId();

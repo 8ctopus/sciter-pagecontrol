@@ -1,6 +1,6 @@
 <html
     window-resizable="true"
-    window-width="400dip"
+    window-width="800dip"
     window-height="850dip"
 >
 <head>
@@ -17,6 +17,11 @@ div#controls {
     flow: horizontal;
     border-spacing: 0.5em;
     padding: 0.5em;
+}
+
+div#grid {
+    size: *;
+    flow: row(pagecontrol,pagecontrol);
 }
 
 @import url("src/pagecontrol.css");
@@ -110,74 +115,76 @@ document.on("ready", function() {
         <button #next>&gt;</button>
         <button #toggle>Show/hide header</button>
     </div>
-    <pagecontrol #p1 header="top">
-        <tab title="first tab" icon="fas fa-star">
-            <p> first tab content </p>
-            <button> test </button>
-        </tab>
-        <tab title="second tab" icon="fas fa-bell" selected>
-            <p> second tab content </p>
-        </tab>
-        <tab title="third tab">
-            <p>
-                third tab content <br>
-                <b>some</b> literal <i>HTML</i>
-            </p>
-        </tab>
-        <tab src="tab4.html" title="fourth tab" icon="fas fa-star" />
-        <tab src="tab5.html" />
-    </pagecontrol>
-    <pagecontrol #p2 header="right">
-        <tab title="first tab" icon="fas fa-star">
-            <p> first tab content </p>
-            <button> test </button>
-        </tab>
-        <tab title="second tab" icon="fas fa-bell" selected>
-            <p> second tab content </p>
-        </tab>
-        <tab title="third tab">
-            <p>
-                third tab content <br>
-                <b>some</b> literal <i>HTML</i>
-            </p>
-        </tab>
-        <tab src="tab4.html" icon="fas fa-star" />
-        <tab src="tab5.html" />
-    </pagecontrol>
-    <pagecontrol #p3 header="bottom">
-        <tab title="first tab" icon="fas fa-star">
-            <p> first tab content </p>
-            <button> test </button>
-        </tab>
-        <tab title="second tab" icon="fas fa-bell" selected>
-            <p> second tab content </p>
-        </tab>
-        <tab title="third tab">
-            <p>
-                third tab content <br>
-                <b>some</b> literal <i>HTML</i>
-            </p>
-        </tab>
-        <tab src="tab4.html" icon="fas fa-star" />
-        <tab src="tab5.html" />
-    </pagecontrol>
-    <pagecontrol #p4 header="left">
-        <tab title="first tab" icon="fas fa-star">
-            <p> first tab content </p>
-            <button> test </button>
-        </tab>
-        <tab title="second tab" icon="fas fa-bell" selected>
-            <p> second tab content </p>
-        </tab>
-        <tab title="third tab">
-            <p>
-                third tab content <br>
-                <b>some</b> literal <i>HTML</i>
-            </p>
-        </tab>
-        <tab src="tab4.html" icon="fas fa-star" />
-        <tab src="tab5.html" />
-    </pagecontrol>
+    <div #grid>
+        <pagecontrol #p4 header="left">
+            <tab title="first tab" icon="fas fa-star">
+                <p> first tab content </p>
+                <button> test </button>
+            </tab>
+            <tab title="second tab" icon="fas fa-bell" selected>
+                <p> second tab content </p>
+            </tab>
+            <tab title="third tab">
+                <p>
+                    third tab content <br>
+                    <b>some</b> literal <i>HTML</i>
+                </p>
+            </tab>
+            <tab src="tab4.html" icon="fas fa-star" />
+            <tab src="tab5.html" />
+        </pagecontrol>
+        <pagecontrol #p2 header="right">
+            <tab title="first tab" icon="fas fa-star">
+                <p> first tab content </p>
+                <button> test </button>
+            </tab>
+            <tab title="second tab" icon="fas fa-bell" selected>
+                <p> second tab content </p>
+            </tab>
+            <tab title="third tab">
+                <p>
+                    third tab content <br>
+                    <b>some</b> literal <i>HTML</i>
+                </p>
+            </tab>
+            <tab src="tab4.html" icon="fas fa-star" />
+            <tab src="tab5.html" />
+        </pagecontrol>
+        <pagecontrol #p1 header="top">
+            <tab title="first tab" icon="fas fa-star">
+                <p> first tab content </p>
+                <button> test </button>
+            </tab>
+            <tab title="second tab" icon="fas fa-bell" selected>
+                <p> second tab content </p>
+            </tab>
+            <tab title="third tab">
+                <p>
+                    third tab content <br>
+                    <b>some</b> literal <i>HTML</i>
+                </p>
+            </tab>
+            <tab src="tab4.html" title="fourth tab" icon="fas fa-star" />
+            <tab src="tab5.html" />
+        </pagecontrol>
+        <pagecontrol #p3 header="bottom">
+            <tab title="first tab" icon="fas fa-star">
+                <p> first tab content </p>
+                <button> test </button>
+            </tab>
+            <tab title="second tab" icon="fas fa-bell" selected>
+                <p> second tab content </p>
+            </tab>
+            <tab title="third tab">
+                <p>
+                    third tab content <br>
+                    <b>some</b> literal <i>HTML</i>
+                </p>
+            </tab>
+            <tab src="tab4.html" icon="fas fa-star" />
+            <tab src="tab5.html" />
+        </pagecontrol>
+    </div>
     <plaintext #logger />
 </body>
 </html>

@@ -156,17 +156,16 @@ export class Tab extends Element
     selector(selector)
     {
         // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
-        const tab         = "tab#" + this.id;
-        const pagecontrol = "pagecontrol#" + this.getPageControl().id;
+        const tab = "tab#" + this.id;
 
         if (selector == "tab")
             return tab;
         else
         if (selector == "pagecontrol")
-            return pagecontrol;
+            return this.getPageControl().selector();
         else
         if (selector == "both")
-            return pagecontrol + " " + tab;
+            return this.getPageControl().mainDivSelector() + " > div.tabs > " + tab;
         else
             console.error(`unknown selector ${selector}`);
     }

@@ -356,7 +356,7 @@ export class PageControl extends Element
      */
     expandTab(id)
     {
-        // TODO simplify selector, must know how tab is organized, tab must know it
+        // TODO simplify selector, must not know how tab is organized, tab must know it
         const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id + ` > div.tab#`+ id;
         const tab = this.$(selector);
 
@@ -404,7 +404,6 @@ export class PageControl extends Element
      */
     collapseTab()
     {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab > div.tab:expanded`);
 
         if (!tab) {
@@ -426,7 +425,6 @@ export class PageControl extends Element
      */
     previousNextTab(direction)
     {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         // get selected header
         const header = this.$(this.mainDivSelector() + ` > div.header > div:selected`);
 

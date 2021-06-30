@@ -40,6 +40,10 @@ export class Tab extends Element
         if (!src)
             html = this.innerHTML;
         else
+        if (1)
+            // include source
+            html = `<include src="` + src + `"/>`;
+        else
         if (!sys.fs.$lstat(src))
             console.error(`tab src does not exist ${src}`);
         else {
@@ -101,6 +105,54 @@ export class Tab extends Element
         );
 
         this.content(tab);
+
+        // TODO get all STYLE tags
+        // TODO see how to process includes
+
+        // load SCRIPT tag from loaded doc
+        let styleEl = this.$("style");
+
+        if (styleEl) {
+            // get its content
+            let style = styleEl.innerHTML;
+
+            // get pagecontrol id
+            const id = this.getPageControl().id;
+
+            // set styleset name
+            stylesetname = `${id}-` + this.id;
+
+            // create styleset in order to inject tab style
+            let styleset = `@set ${stylesetname} { ${style} }`;
+
+            // inject styleset in head
+            document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
+
+            // set styleset name for component
+            stylesetname = `#${stylesetname}`;
+
+            let div = this.$("div.tab");
+            div.attributes.styleset = stylesetname;
+
+            //console.warn("----- styleset - " + s.attributes.styleset);
+
+            // remove style tag to avoid interfearing
+            styleEl.parentElement.removeChild(styleEl);
+        }
+
+        // TODO get all SCRIPT tags
+        // TODO see how to process includes
+
+        // get SCRIPT tag
+        let scriptEl = this.$("script");
+
+        if (scriptEl) {
+            // load script
+            this.loadTabScript(scriptEl.innerHTML, src);
+
+            // remove script tag to avoid interfearing
+            scriptEl.parentElement.removeChild(scriptEl);
+        }
     }
 
     /**

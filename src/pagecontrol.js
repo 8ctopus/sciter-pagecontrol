@@ -133,7 +133,7 @@ export class Tab extends Element
      */
     getPageControl()
     {
-        return this.parentElement.parentElement;
+        return this.closest("pagecontrol");
     }
 
     /**

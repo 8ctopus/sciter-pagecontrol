@@ -31,7 +31,7 @@ pagecontrol {
 }
 
 // custom skinning of fourth tab
-pagecontrol div#tab-4 {
+pagecontrol#p1 div#tab-4 {
     background: cyan;
 }
 
@@ -116,7 +116,7 @@ document.on("ready", function() {
         <button #toggle>Show/hide header</button>
     </div>
     <div #grid>
-        <pagecontrol #p4 header="left">
+        <pagecontrol #p1 header="left">
             <tab title="first tab" icon="fas fa-star">
                 <p> first tab content </p>
                 <button> test </button>
@@ -150,7 +150,7 @@ document.on("ready", function() {
             <tab src="tab4.html" icon="fas fa-star" />
             <tab src="tab5.html" />
         </pagecontrol>
-        <pagecontrol #p1 header="top">
+        <pagecontrol #p3 header="top">
             <tab title="first tab" icon="fas fa-star">
                 <p> first tab content </p>
                 <button> test </button>
@@ -167,7 +167,7 @@ document.on("ready", function() {
             <tab src="tab4.html" title="fourth tab" icon="fas fa-star" />
             <tab src="tab5.html" />
         </pagecontrol>
-        <pagecontrol #p3 header="bottom">
+        <pagecontrol #p4s header="bottom">
             <tab title="first tab" icon="fas fa-star">
                 <p> first tab content </p>
                 <button> test </button>

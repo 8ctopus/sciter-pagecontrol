@@ -85,14 +85,7 @@ export class Tab extends Element
                 // get script
                 const script = matches[1];
 
-                // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
-                // source: https://2ality.com/2019/10/eval-via-import.html
-                // html encode javascript
-                const encodedJs = encodeURIComponent(script);
-                const dataUri = 'data:text/javascript;charset=utf-8,'
-                    + encodedJs;
-
-                this.loadTabScript(dataUri);
+                this.loadTabScript(script, src);
             }
         }
 
@@ -112,10 +105,24 @@ export class Tab extends Element
 
     /**
      * Load tab script
-     * @param string dataUri
+     * @param string script
+     * @param string
+     * @return void
      */
-    async loadTabScript(dataUri)
+    async loadTabScript(script, debugHint)
     {
+        // make sure not empty
+        script = script.trim();
+        if (script == "")
+            return;
+
+        // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
+        // source: https://2ality.com/2019/10/eval-via-import.html
+        // html encode javascript
+        const encodedJs = encodeURIComponent(script);
+        const dataUri = 'data:text/javascript;charset=utf-8,'
+            + encodedJs;
+
         // load tab script
         await import(dataUri)
             .then(module => {
@@ -123,7 +130,8 @@ export class Tab extends Element
                 module.initTab(this.id, this);
             })
             .catch(error => {
-                console.error("Init tab - FAILED - " + error.message);
+                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions
+                console.error("Init tab - FAILED - " + error.message + " - " + debugHint);
             });
     }
 

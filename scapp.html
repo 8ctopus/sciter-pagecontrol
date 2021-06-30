@@ -104,7 +104,8 @@ document.on("ready", function() {
         pagecontrol.toggleHeader();
     });
 
-    pagecontrol.showTab("tab-3");
+    pagecontrol.showTab("tab-2");
+    pagecontrol.showTab("mytab");
 });
 
 </script>
@@ -124,7 +125,7 @@ document.on("ready", function() {
             <tab title="second tab" icon="fas fa-bell" selected>
                 <p> second tab content </p>
             </tab>
-            <tab title="third tab">
+            <tab title="third tab" #mytab>
                 <p>
                     third tab content <br>
                     <b>some</b> literal <i>HTML</i>

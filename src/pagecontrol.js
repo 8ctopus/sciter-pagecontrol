@@ -28,11 +28,9 @@ export class Tab extends Element
     render()
     {
         const src = this.attributes["src"] || null;
-        const i   = this.elementIndex + 1;
 
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
-        if (this.id == "")
-            this.setAttribute("id", `tab-${i}`);
+        // check if id set if not generate one
+        this.setAttribute("id", Tab.validateID(this.id, this.elementIndex + 1));
 
         let html = "";
 
@@ -170,6 +168,21 @@ export class Tab extends Element
             console.error(`unknown selector ${selector}`);
     }
 
+    /**
+    * Check if id set and if not generate one
+    *@param id - id to validate
+    *@param index - tab index in pagecontrol
+    *@returns original id if set, fixed otherwise
+    */
+    static validateID(id, index)
+    {
+        // create id if not set
+        if (id == "")
+            return `tab-${index}`;
+
+        return id;
+    }
+
     ["on expand at tab"](event, element)
     {
         this.classList.add("block");
@@ -254,28 +267,31 @@ export class PageControl extends Element
      */
     createHeaders()
     {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues in case of second render() call(e.g. on componentUpdate() and some kind of update)
         // get tabs
-        const tabs = this.$$("tab");
+        const tabs = this.$$(`tab`);
 
         // create headers
-        let headers = tabs.map(function(element, i) {
+        let headers = tabs.map(function(tab, i) {
             i++;
 
+            // validate id if not yet set
+            let tabID = Tab.validateID(tab.id, i);
+
             // get caption
-            const caption = element.attributes["title"] || `tab ${i}`;
+            const caption = tab.attributes["title"] || tabID;
 
             // get icon
-            let icon = element.attributes["icon"] || "";
+            let icon = tab.attributes["icon"] || "";
 
             if (icon != "")
                 icon = <i class={icon}></i>;
 
             // get selected
-            const selected = (element.attributes["selected"] == "") ? true : false;
+            const selected = (tab.attributes["selected"] == "") ? true : false;
 
             return (
-                <div panel={"tab-" + i} state-selected={selected} data-i18n>{icon}{caption}</div>
+                <div panel={tabID} state-selected={selected} data-i18n>{icon}{caption}</div>
             );
         });
 

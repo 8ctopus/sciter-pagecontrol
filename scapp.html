@@ -90,7 +90,8 @@ document.on("ready", function() {
         }
     });
 
-    let pagecontrol = document.$("pagecontrol");
+    // cycle through pagecontrol tabs programmatically
+    let pagecontrol = document.$("pagecontrol#p1");
 
     document.$("button#previous").on("click", function() {
         pagecontrol.previousTab();
@@ -101,9 +102,11 @@ document.on("ready", function() {
     });
 
     document.$("button#toggle").on("click", function() {
+        // show, hide pagecontrol header
         pagecontrol.toggleHeader();
     });
 
+    // show tab
     pagecontrol.showTab("tab-2");
     pagecontrol.showTab("mytab");
 });

@@ -16,7 +16,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 - git clone the repository
 - run `install.bat` to download the latest sciter binaries, library and the sciter package manager
-- install packages `php spm.phar install`
+- install packages `php spm.phar install` (only for fontawesome)
 - start `scapp.exe`
 - to refresh the app after changes to the html/css click `F5`
 

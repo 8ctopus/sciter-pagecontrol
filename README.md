@@ -44,7 +44,3 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
         </tab>
     </pagecontrol>
 ```
-
-# known issues
-
-- JSX is not supported inside tabs js

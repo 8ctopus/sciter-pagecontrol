@@ -126,10 +126,21 @@ document.on("ready", function() {
                 <p> second tab content </p>
             </tab>
             <tab title="third tab" #mytab>
-                <p>
-                    third tab content <br>
-                    <b>some</b> literal <i>HTML</i>
-                </p>
+            <pagecontrol #p5 header="left">
+                <tab title="first tab" icon="fas fa-star">
+                    <p> first tab content </p>
+                    <button> test </button>
+                </tab>
+                <tab title="second tab" icon="fas fa-bell" selected>
+                    <p> second tab content </p>
+                </tab>
+                <tab title="third tab" #mytab>
+                    <p>
+                        third tab content <br>
+                        <b>some</b> literal <i>HTML</i>
+                    </p>
+                </tab>
+            </pagecontrol>
             </tab>
             <tab src="tab4.html" icon="fas fa-star" />
             <tab src="tab5.html" />

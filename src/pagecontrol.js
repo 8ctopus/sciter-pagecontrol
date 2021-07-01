@@ -323,8 +323,12 @@ export class PageControl extends Element
      * @param string event
      * @param element clicked element
      */
-    ["on click at pagecontrol div.header > div"](event, element)
+    ["on click at pagecontrol > div > div.header > div"](event, element)
     {
+        // make sure event is not triggered for a nested pagecontrol
+        if (element.parentElement.parentElement.id != this.id)
+            return;
+
         // unselect all headers
         this.unselectHeaders();
 

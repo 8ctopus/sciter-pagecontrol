@@ -377,7 +377,7 @@ export class PageControl extends Element
     {
         // TODO simplify selector, must not know how tab is organized, tab must know it
         const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id + ` > div.tab#`+ id;
-        const tab = this.$(selector);
+        const tab      = this.$(selector);
 
         if (!tab) {
             console.error("tab does not exist - " + selector);

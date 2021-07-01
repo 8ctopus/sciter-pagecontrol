@@ -268,9 +268,8 @@ export class PageControl extends Element
      */
     createHeaders()
     {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues in case of second render() call(e.g. on componentUpdate() and some kind of update)
         // get tabs
-        const tabs = this.$$(`tab`);
+        const tabs = this.$$(`> tab`);
 
         // create headers
         let headers = tabs.map(function(tab, i) {

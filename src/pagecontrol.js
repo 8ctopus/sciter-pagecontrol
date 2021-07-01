@@ -155,7 +155,6 @@ export class Tab extends Element
      */
     selector(selector)
     {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
         const tab = "tab#" + this.id;
 
         if (selector == "tab")

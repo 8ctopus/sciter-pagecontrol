@@ -11,12 +11,31 @@ button {
 </style>
 <script type="module">
 
+/**
+ * Initialize tab
+ * @param  string tabid
+ * @param  DOM Element tab
+ * @return void
+ */
 export function initTab(tabid, tab)
 {
-    console.log("Init tab - " + tab.selector("both"));
+    //console.log("Init tab - " + tab.selector("both"));
 
+    // handle button click event
     tab.on("click", "button#hello", function() {
-        console.log(`tab5 button clicked!`);
+        console.log(`${tabid} button clicked!`);
+    });
+
+    // handle show tab event
+    let pagecontrol = tab.getPageControl();
+
+    pagecontrol.on("showtab", function(event, element) {
+        // check that event is for this tab
+        if (tabid != event.detail.tab)
+            return;
+
+        // do something when tab is shown
+        console.log(`${tabid} shown`);
     });
 }
 

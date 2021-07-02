@@ -15,7 +15,7 @@ export function initTab(tabid, tab)
 {
     console.log("Init tab - " + tab.selector("both"));
 
-    document.on("click", tab.selector("both") + " button#hello", function() {
+    tab.on("click", "button#hello", function() {
         console.log("tab4 button clicked!");
     });
 }

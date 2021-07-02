@@ -13,29 +13,27 @@ button {
 
 /**
  * Initialize tab
- * @param  string tabid
  * @param  DOM Element tab
+ * @param  DOM Element pagecontrol
  * @return void
  */
-export function initTab(tabid, tab)
+export function initTab(tab, pagecontrol)
 {
     //console.log("Init tab - " + tab.selector("both"));
 
     // handle button click event
     tab.on("click", "button#hello", function() {
-        console.log(`${tabid} button clicked!`);
+        console.log(`${tab.id} button clicked!`);
     });
 
     // handle show tab event
-    let pagecontrol = tab.getPageControl();
-
     pagecontrol.on("showtab", function(event, element) {
         // check that event is for this tab
-        if (tabid != event.detail.tab)
+        if (tab.id != event.detail.tab)
             return;
 
         // do something when tab is shown
-        console.log(`${tabid} shown`);
+        console.log(`${tab.id} shown`);
     });
 }
 

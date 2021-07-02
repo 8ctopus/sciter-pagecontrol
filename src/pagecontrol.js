@@ -131,7 +131,7 @@ export class Tab extends Element
         await import(dataUri)
             .then(module => {
                 // initialize tab
-                module.initTab(this.id, this);
+                module.initTab(this, this.getPageControl());
             })
             .catch(error => {
                 // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions

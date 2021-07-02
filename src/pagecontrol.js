@@ -326,7 +326,7 @@ export class PageControl extends Element
     ["on click at pagecontrol > div > div.header > div"](event, element)
     {
         // make sure event is not triggered for a nested pagecontrol
-        if (element.parentElement.parentElement.id != this.id)
+        if (element.closest("pagecontrol").id != this.id)
             return;
 
         // unselect all headers
@@ -391,10 +391,10 @@ export class PageControl extends Element
         // expand tab
         tab.state.expanded = true;
 
-        // dispatch event
+        // dispatch event to tab
         tab.dispatchEvent(new Event("expand", { bubbles: true}));
 
-        // dispatch event
+        // dispatch event to pagecontrol
         this.dispatchEvent(new CustomEvent("showtab", {
             bubbles: true,
             detail: {

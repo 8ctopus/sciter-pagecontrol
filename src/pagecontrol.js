@@ -112,15 +112,15 @@ export class Tab extends Element
     {
         // make sure not empty
         script = script.trim();
-        if (script == "")
+
+        if (script === "")
             return;
 
         // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
         // source: https://2ality.com/2019/10/eval-via-import.html
         // html encode javascript
         const encodedJs = encodeURIComponent(script);
-        const dataUri = 'data:text/javascript;charset=utf-8,'
-            + encodedJs;
+        const dataUri   = "data:text/javascript;charset=utf-8," + encodedJs;
 
         // load tab script
         await import(dataUri)

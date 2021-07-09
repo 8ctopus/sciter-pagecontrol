@@ -4,7 +4,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 "It is a multi-page component that provides a container to hold a variety of controls per page. Much like a real-world notebook, it displays a "tab" per page so that the user can quickly switch between pages. Each page can contain its own selection of controls." [[1]](https://wiki.freepascal.org/TPageControl)
 
-![sciter pagecontrol](screenshot.png)
+![sciter pagecontrol screenshot](screenshot.png)
 
 ## features
 
@@ -19,7 +19,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - git clone the repository
 - run `install.bat` to download the latest sciter binaries, library and the sciter package manager
 - install packages `php spm.phar install` (only for fontawesome)
-- start `scapp.exe`
+- run `scapp.bat`
 - to refresh the app after changes to the html/css click `F5`
 
 ## debug app

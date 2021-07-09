@@ -170,6 +170,8 @@ export class Tab extends Element
     expand()
     {
         this.classList.add("block");
+
+        this.state.expanded = true;
     }
 
     /**
@@ -178,6 +180,8 @@ export class Tab extends Element
     collapse()
     {
         this.classList.remove("block");
+
+        this.state.expanded = false;
     }
 
     /**
@@ -390,8 +394,6 @@ export class PageControl extends Element
         }
 
         // expand tab
-        tab.state.expanded = true;
-
         tab.expand();
 
         // dispatch event to pagecontrol
@@ -434,10 +436,7 @@ export class PageControl extends Element
             return;
         }
 
-        // hide expanded tabs
-        tab.state.expanded = false;
-
-        // dispatch event
+        // collapse tab
         tab.collapse();
     }
 

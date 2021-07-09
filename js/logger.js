@@ -7,7 +7,7 @@
     // get console log method address
     const log = console.log;
 
-    const output = document.$("#logger");
+    const output = document.$("plaintext#logger");
 
     // replace original console log
     console.log = function(message) {

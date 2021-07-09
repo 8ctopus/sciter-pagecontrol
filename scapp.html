@@ -40,6 +40,7 @@ plaintext#logger {
 }
 
 </style>
+<script src="js/logger.js" />
 <script>
 
 document.on("ready", function() {
@@ -56,6 +57,9 @@ document.on("ready", function() {
                 log.plaintext.appendLine(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
                 break;
         }
+
+        // scroll to last item
+        log.lastElementChild.scrollIntoView({behavior:"smooth"});
     });
 
     // cycle through pagecontrol tabs programmatically

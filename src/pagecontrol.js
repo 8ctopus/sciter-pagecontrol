@@ -30,7 +30,7 @@ export class Tab extends Element
         const src = this.attributes["src"] || null;
 
         // check if id set if not generate one
-        this.setAttribute("id", Tab.validateID(this.id, this.elementIndex + 1));
+        this.id = Tab.validateID(this.id, this.elementIndex + 1);
 
         let html = "";
 

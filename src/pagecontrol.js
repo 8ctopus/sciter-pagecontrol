@@ -36,11 +36,6 @@ export class Tab extends Element
 
         if (!src)
             html = this.innerHTML;
-        /*
-        else
-        if (!sys.fs.$lstat(src))
-            console.error(`tab src does not exist ${src}`);
-        */
         else
             // include source
             html = `<include src="` + src + `"/>`;

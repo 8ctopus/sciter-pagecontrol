@@ -61,15 +61,15 @@ document.on("ready", function() {
     // cycle through pagecontrol tabs programmatically
     let pagecontrol = document.$("pagecontrol#p1");
 
-    document.$("button#previous").on("click", function() {
+    document.on("click", "button#previous", function() {
         pagecontrol.previousTab();
     });
 
-    document.$("button#next").on("click", function() {
+    document.on("click", "button#next", function() {
         pagecontrol.nextTab();
     });
 
-    document.$("button#toggle").on("click", function() {
+    document.on("click", "button#toggle", function() {
         // show, hide pagecontrol header
         pagecontrol.toggleHeader();
     });
@@ -168,6 +168,6 @@ document.on("ready", function() {
             <tab src="tab5.html" />
         </pagecontrol>
     </div>
-    <plaintext #logger />
+    <plaintext #logger readonly />
 </body>
 </html>

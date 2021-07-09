@@ -1,4 +1,4 @@
-//"use strict";
+"use strict";
 
 /**
  * redirect console logging to plaintext element

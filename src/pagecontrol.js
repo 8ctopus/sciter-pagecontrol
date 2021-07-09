@@ -165,6 +165,22 @@ export class Tab extends Element
     }
 
     /**
+     * Expand tab
+     */
+    expand()
+    {
+        this.classList.add("block");
+    }
+
+    /**
+     * Collapse tab
+     */
+    collapse()
+    {
+        this.classList.remove("block");
+    }
+
+    /**
     * Check if id set and if not generate one
     *@param id - id to validate
     *@param index - tab index in pagecontrol
@@ -177,16 +193,6 @@ export class Tab extends Element
             return `tab-${index}`;
 
         return id;
-    }
-
-    ["on expand at tab"](event, element)
-    {
-        this.classList.add("block");
-    }
-
-    ["on collapse at tab"](event, element)
-    {
-        this.classList.remove("block");
     }
 }
 
@@ -375,7 +381,7 @@ export class PageControl extends Element
     expandTab(id)
     {
         // TODO simplify selector, must not know how tab is organized, tab must know it
-        const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id + ` > div.tab#`+ id;
+        const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id;
         const tab      = this.$(selector);
 
         if (!tab) {
@@ -386,8 +392,7 @@ export class PageControl extends Element
         // expand tab
         tab.state.expanded = true;
 
-        // dispatch event to tab
-        tab.dispatchEvent(new Event("expand", { bubbles: true}));
+        tab.expand();
 
         // dispatch event to pagecontrol
         this.dispatchEvent(new CustomEvent("showtab", {
@@ -422,7 +427,7 @@ export class PageControl extends Element
      */
     collapseTab()
     {
-        const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab > div.tab:expanded`);
+        const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab:expanded`);
 
         if (!tab) {
             //console.log("no expanded tab");
@@ -433,7 +438,7 @@ export class PageControl extends Element
         tab.state.expanded = false;
 
         // dispatch event
-        tab.dispatchEvent(new Event("collapse", { bubbles: true}));
+        tab.collapse();
     }
 
     /**

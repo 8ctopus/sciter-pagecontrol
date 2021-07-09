@@ -44,5 +44,6 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
         <tab title="2nd tab">
             <button> another button </button>
         </tab>
+        <tab src="tab4.html" icon="fas fa-star" />
     </pagecontrol>
 ```

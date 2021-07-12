@@ -380,7 +380,6 @@ export class PageControl extends Element
      */
     expandTab(id)
     {
-        // TODO simplify selector, must not know how tab is organized, tab must know it
         const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id;
         const tab      = this.$(selector);
 

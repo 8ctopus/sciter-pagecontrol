@@ -296,8 +296,10 @@ export class PageControl extends Element
             // get selected
             const selected = (tab.attributes["selected"] === "") ? true : false;
 
+            let i18n = `menu:${caption}`;
+
             return (
-                <div panel={tabID} state-selected={selected} data-i18n>{icon}{caption}</div>
+                <div panel={tabID} state-selected={selected} data-i18n={i18n}>{icon}{caption}</div>
             );
         });
 

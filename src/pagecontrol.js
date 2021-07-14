@@ -353,13 +353,12 @@ export class PageControl extends Element
     showTab(id)
     {
         const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
+        const header   = this.$(selector);
 
-        if (!selector) {
-            console.error(`invalid tab id ${id} - ` + selector);
+        if (!header) {
+            console.error(`invalid tab ${id}`);
             return;
         }
-
-        const header = this.$(selector);
 
         // unselect all headers
         this.unselectHeaders();
@@ -384,7 +383,7 @@ export class PageControl extends Element
         const tab      = this.$(selector);
 
         if (!tab) {
-            console.error("tab does not exist - " + selector);
+            console.error(`invalid tab ${id}`);
             return;
         }
 

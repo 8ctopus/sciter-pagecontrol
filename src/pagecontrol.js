@@ -40,7 +40,7 @@ export class Tab extends Element
             // include source
             html = `<include src="` + src + `"/>`;
 
-        const expanded = (this.attributes["selected"] == "") ? true : false;
+        const expanded = (this.attributes["selected"] === "") ? true : false;
 
         // if tab is selected, show it (event doesn't trigger at this point)
         if (expanded)
@@ -152,13 +152,13 @@ export class Tab extends Element
     {
         const tab = "tab#" + this.id;
 
-        if (selector == "tab")
+        if (selector === "tab")
             return tab;
         else
-        if (selector == "pagecontrol")
+        if (selector === "pagecontrol")
             return this.getPageControl().selector();
         else
-        if (selector == "both")
+        if (selector === "both")
             return this.getPageControl().mainDivSelector() + " > div.tabs > " + tab;
         else
             console.error(`unknown selector ${selector}`);
@@ -193,7 +193,7 @@ export class Tab extends Element
     static validateID(id, index)
     {
         // create id if not set
-        if (id == "")
+        if (id === "")
             return `tab-${index}`;
 
         return id;
@@ -289,11 +289,11 @@ export class PageControl extends Element
             // get icon
             let icon = tab.attributes["icon"] || "";
 
-            if (icon != "")
+            if (icon !== "")
                 icon = <i class={icon}></i>;
 
             // get selected
-            const selected = (tab.attributes["selected"] == "") ? true : false;
+            const selected = (tab.attributes["selected"] === "") ? true : false;
 
             return (
                 <div panel={tabID} state-selected={selected} data-i18n>{icon}{caption}</div>
@@ -445,12 +445,12 @@ export class PageControl extends Element
         // get selected header
         const header = this.$(this.mainDivSelector() + ` > div.header > div:selected`);
 
-        let next = (direction == +1) ? header.nextElementSibling : header.previousElementSibling;
+        let next = (direction === +1) ? header.nextElementSibling : header.previousElementSibling;
 
         if (!next) {
             const parent = header.parentElement;
 
-            next = (direction == +1) ? parent.firstChild : parent.lastChild;
+            next = (direction === +1) ? parent.firstChild : parent.lastChild;
         }
 
         this.showTab(next.attributes["panel"]);
@@ -506,7 +506,7 @@ export class PageControl extends Element
     selector()
     {
         // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
-        if (this.id == "")
+        if (this.id === "")
             return "pagecontrol";
 
         return "pagecontrol#" + this.id;

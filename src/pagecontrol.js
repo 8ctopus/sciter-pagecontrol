@@ -40,18 +40,21 @@ export class Tab extends Element
             // include source
             html = `<include src="` + src + `"/>`;
 
-        const expanded = (this.attributes["selected"] === "") ? true : false;
-
-        // if tab is selected, show it (event doesn't trigger at this point)
-        if (expanded)
-            this.classList.add("block");
-
         // create tab
         const tab = (
-            <div .tab id={this.id} state-expanded={expanded} state-html={html} />
+            <div .tab id={this.id} state-html={html} />
         );
 
         this.content(tab);
+
+        const expanded = (this.attributes["selected"] === "") ? true : false;
+
+        // if tab is selected, show it (event doesn't trigger at this point)
+        if (expanded) {
+            this.state.expanded = expanded;
+            this.classList.add("block");
+        }
+
 
         // TODO get all STYLE tags
         // TODO see how to process includes

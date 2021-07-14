@@ -81,8 +81,6 @@ export class Tab extends Element
             let div = this.$("div.tab");
             div.attributes.styleset = stylesetname;
 
-            //console.warn("----- styleset - " + s.attributes.styleset);
-
             // remove style tag to avoid interfearing
             styleEl.parentElement.removeChild(styleEl);
         }
@@ -426,7 +424,7 @@ export class PageControl extends Element
         const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab:expanded`);
 
         if (!tab) {
-            //console.log("no expanded tab");
+            console.warn("no expanded tab");
             return;
         }
 

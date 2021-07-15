@@ -475,18 +475,43 @@ export class PageControl extends Element
     }
 
     /**
-     * Toggle header visibility
-     * @param bool optional visible
+     * Toggle headers visibility
+     * @param bool (optional) visible
      * @return void
      */
-    toggleHeader(visible)
+    toggleHeaders(visible)
     {
         // get header
         const selector = this.mainDivSelector() + ` > div.header`;
-        const header = this.$(selector);
+        const header   = this.$(selector);
 
         if (!header) {
             console.error("header does not exist - " + selector);
+            return;
+        }
+
+        if (typeof visible === "undefined")
+            header.classList.toggle("hide");
+        else
+        if (visible)
+            header.classList.remove("hide");
+        else
+            header.classList.add("hide");
+    }
+
+    /**
+     * Hide tab header by id
+     * @param string tab id
+     * @param bool (optional) visible
+     * @return void
+     */
+    toggleTabHeader(id, visible)
+    {
+        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
+        const header   = this.$(selector);
+
+        if (!header) {
+            console.warn(`invalid tab ${id}`);
             return;
         }
 

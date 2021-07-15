@@ -76,7 +76,12 @@ document.on("ready", function() {
 
     document.on("click", "button#toggle", function() {
         // show, hide pagecontrol header
-        pagecontrol.toggleHeader();
+        pagecontrol.toggleHeaders();
+    });
+
+    document.on("click", "button#toggleTabHeader", function() {
+        // show, hide mytab header
+        pagecontrol.toggleTabHeader("tab-2");
     });
 
     // show tab
@@ -90,7 +95,8 @@ document.on("ready", function() {
     <div #controls>
         <button #previous>&lt;</button>
         <button #next>&gt;</button>
-        <button #toggle>Show/hide header</button>
+        <button #toggle>Show/hide headers</button>
+        <button #toggleTabHeader>Show/hide mytab header</button>
     </div>
     <div #grid>
         <pagecontrol #p1 header="left">

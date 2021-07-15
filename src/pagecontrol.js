@@ -357,7 +357,7 @@ export class PageControl extends Element
         const header   = this.$(selector);
 
         if (!header) {
-            console.error(`invalid tab ${id}`);
+            console.warn(`invalid tab ${id}`);
             return;
         }
 

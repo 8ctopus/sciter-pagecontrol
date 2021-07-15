@@ -55,7 +55,6 @@ export class Tab extends Element
             this.classList.add("block");
         }
 
-
         // TODO get all STYLE tags
         // TODO see how to process includes
 

@@ -296,23 +296,7 @@ export class PageControl extends Element
             // get selected
             const selected = (tab.attributes["selected"] === "") ? true : false;
 
-            let lowercase;
-            let translated;
-
-            // search for spaces in captions
-            if (caption.indexOf(' ') !== -1) {
-                // replace all spaces with _
-                let nospaces = caption.replace(/ /g, "_");
-
-                // caption to lowercase
-                lowercase = nospaces.toLowerCase();
-            }
-
-            else {
-                lowercase = caption.toLowerCase();  
-            }
-
-            translated = `menu:${lowercase}`;
+            let translated = "menu:" + caption.replace(/ /g, "_").toLowerCase();
 
             return (<div panel={tabID} state-selected={selected} data-i18n={translated}>{icon}{caption}</div>);
         });

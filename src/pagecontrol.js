@@ -282,7 +282,7 @@ export class PageControl extends Element
             i++;
 
             // validate id if not yet set
-            let tabID = Tab.validateID(tab.id, i);
+            const tabID = Tab.validateID(tab.id, i);
 
             // get caption
             const caption = tab.attributes["title"] || tabID;
@@ -296,9 +296,9 @@ export class PageControl extends Element
             // get selected
             const selected = (tab.attributes["selected"] === "") ? true : false;
 
-            let translated = "menu:" + caption.replace(/ /g, "_").toLowerCase();
+            const i18n = "menu:" + caption.replace(/ /g, "_").toLowerCase();
 
-            return (<div panel={tabID} state-selected={selected} data-i18n={translated}>{icon}{caption}</div>);
+            return (<div panel={tabID} state-selected={selected} data-i18n={i18n}>{icon}{caption}</div>);
         });
 
         headers = (

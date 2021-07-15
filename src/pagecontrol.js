@@ -296,11 +296,25 @@ export class PageControl extends Element
             // get selected
             const selected = (tab.attributes["selected"] === "") ? true : false;
 
-            let i18n = `menu:${caption}`;
+            let lowercase;
+            let translated;
 
-            return (
-                <div panel={tabID} state-selected={selected} data-i18n={i18n}>{icon}{caption}</div>
-            );
+            // search for spaces in captions
+            if (caption.indexOf(' ') !== -1) {
+                // replace all spaces with _
+                let nospaces = caption.replace(/ /g, "_");
+
+                // caption to lowercase
+                lowercase = nospaces.toLowerCase();
+            }
+
+            else {
+                lowercase = caption.toLowerCase();  
+            }
+
+            translated = `menu:${lowercase}`;
+
+            return (<div panel={tabID} state-selected={selected} data-i18n={translated}>{icon}{caption}</div>);
         });
 
         headers = (

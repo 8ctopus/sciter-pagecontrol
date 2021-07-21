@@ -40,3 +40,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
         <tab src="tab4.html" icon="fas fa-star" />
     </pagecontrol>
 ```
+
+## todo
+
+- use exceptions instead of console logging?

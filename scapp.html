@@ -39,28 +39,65 @@ plaintext#logger {
     height: 30%;
 }
 
+log {
+    width: *;
+    padding-left: 4dip;
+    color: rgb(40,40,40);
+}
+
+warn {
+    width: *;
+    padding-left: 4dip;
+    color: orange;
+}
+
+error {
+    width: *;
+    padding-left: 4dip;
+    color: red;
+    //font-weight: bold;
+}
+
 </style>
-<script src="js/logger.js" />
 <script src="js/utils.js" />
-<script>
+<script type="module">
+
+import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+
+// initialize logger
+logger.init(URL.toPath(__DIR__ + "test.log", true));
+
+// attach logger to console
+logger.attach();
+
+// capture unhandled exceptions
+logger.capture();
 
 document.on("ready", function() {
+    const log = document.$("plaintext#logger");
+
     // add event listener
     document.on("showtab expand collapse", function(event, element) {
-        const log = document.$("plaintext#logger");
-
         switch (event.type) {
             case "showtab":
-                log.plaintext.appendLine(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
+                console.log(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
                 break;
 
             default:
-                log.plaintext.appendLine(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
+                console.log(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
                 break;
         }
 
         // scroll to last item
-        log.lastElementChild.scrollIntoView({behavior:"smooth"});
+        log.lastElementChild.scrollIntoView({behavior: "smooth"});
+    });
+
+    // subscribe to logger messages
+    logger.subscribe(function(level, message) {
+        log.append(JSX(level, {}, [message]));
+
+        // scroll to last item
+        log.lastElementChild.scrollIntoView({behavior: "smooth"});
     });
 
     // cycle through pagecontrol tabs programmatically

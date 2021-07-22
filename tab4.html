@@ -19,11 +19,11 @@ button {
  */
 export function initTab(tab, pagecontrol)
 {
-    //console.log("Init tab - " + tab.selector("both"));
+    //console.debug("Init tab - " + tab.selector("both"));
 
     // handle button click event
     tab.on("click", "button#hello", function() {
-        console.log(`${tab.id} button clicked!`);
+        console.debug(`${tab.id} button clicked!`);
     });
 
     // handle show tab event
@@ -33,7 +33,7 @@ export function initTab(tab, pagecontrol)
             return;
 
         // do something when tab is shown
-        console.log(`${tab.id} shown`);
+        console.debug(`${tab.id} shown`);
     });
 }
 

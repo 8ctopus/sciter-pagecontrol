@@ -39,25 +39,8 @@ plaintext#logger {
     height: 30%;
 }
 
-log {
-    width: *;
-    padding-left: 4dip;
-    color: rgb(40,40,40);
-}
-
-warn {
-    width: *;
-    padding-left: 4dip;
-    color: orange;
-}
-
-error {
-    width: *;
-    padding-left: 4dip;
-    color: red;
-}
-
 </style>
+<style src="vendor/8ctopus/sciter-logger/src/logger.css" />
 <script type="module">
 
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
@@ -85,11 +68,11 @@ document.on("ready", function() {
     document.on("showtab expand collapse", function(event, element) {
         switch (event.type) {
             case "showtab":
-                console.log(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
+                console.debug(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
                 break;
 
             default:
-                console.log(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
+                console.debug(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
                 break;
         }
 

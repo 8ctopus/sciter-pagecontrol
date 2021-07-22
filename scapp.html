@@ -55,14 +55,13 @@ error {
     width: *;
     padding-left: 4dip;
     color: red;
-    //font-weight: bold;
 }
 
 </style>
-<script src="js/utils.js" />
 <script type="module">
 
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import {addReloadWindow, centerWindow} from "js/utils.js";
 
 // initialize logger
 logger.init(URL.toPath(__DIR__ + "test.log", true));
@@ -74,6 +73,12 @@ logger.attach();
 logger.capture();
 
 document.on("ready", function() {
+    // add support for F5 reload
+    addReloadWindow();
+
+    // center window on screen
+    centerWindow();
+
     const log = document.$("plaintext#logger");
 
     // add event listener

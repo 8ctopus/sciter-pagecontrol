@@ -24,8 +24,9 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ## install
 
-- add the `src` dir to your project
-- then in your code
+- add the `src` dir to your project or use the sciter package manager
+- in your code
+
 ```html
 <style src="src/pagecontrol.css" />
 <body>

@@ -5,8 +5,11 @@
 >
 <head>
 <title>sciter pagecontrol demo</title>
-<style src="vendor/8ctopus/sciter-fontawesome/src/css/fontawesome.css" />
 <style>
+
+@import url(vendor/8ctopus/sciter-fontawesome/src/css/fontawesome.css);
+@import url(src/pagecontrol.css);
+@import url(vendor/8ctopus/sciter-logger/src/logger.css);
 
 body {
     flow: vertical;
@@ -24,8 +27,6 @@ div#grid {
     flow: row(pagecontrol,pagecontrol);
 }
 
-@import url("src/pagecontrol.css");
-
 pagecontrol {
     size: *;
 }
@@ -40,29 +41,36 @@ plaintext#logger {
 }
 
 </style>
-<style src="vendor/8ctopus/sciter-logger/src/logger.css" />
 <script type="module">
 
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
-import {addReloadWindow, centerWindow} from "js/utils.js";
-
-// initialize logger
-logger.init("", true);
-
-// attach logger to console
-logger.attach();
-
-// capture unhandled exceptions
-logger.capture();
+import {addReloadWindow, centerWindow} from "vendor/8ctopus/sciter-utils/src/utils.js";
 
 document.on("ready", function() {
+    // initialize logger
+    logger.init("", false);
+
+    // subscribe to logger messages
+    logger.subscribe(function(level, message) {
+        const log = document.$("plaintext#logger");
+
+        log.append(JSX(level, {}, [message]));
+
+        // scroll to last item
+        log.lastElementChild.scrollIntoView({behavior: "smooth"});
+    });
+
+    // attach logger to console
+    logger.attach();
+
+    // capture unhandled exceptions
+    logger.capture();
+
     // add support for F5 reload
     addReloadWindow();
 
     // center window on screen
     centerWindow();
-
-    const log = document.$("plaintext#logger");
 
     // add event listener
     document.on("showtab expand collapse", function(event, element) {
@@ -75,17 +83,6 @@ document.on("ready", function() {
                 console.debug(`${event.type} on ${element.tag}.${element.className}#${element.id}`);
                 break;
         }
-
-        // scroll to last item
-        log.lastElementChild.scrollIntoView({behavior: "smooth"});
-    });
-
-    // subscribe to logger messages
-    logger.subscribe(function(level, message) {
-        log.append(JSX(level, {}, [message]));
-
-        // scroll to last item
-        log.lastElementChild.scrollIntoView({behavior: "smooth"});
     });
 
     // cycle through pagecontrol tabs programmatically

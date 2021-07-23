@@ -276,7 +276,7 @@ export class PageControl extends Element
      */
     showTab(id)
     {
-        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
+        const selector = this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`;
         const header   = this.$(selector);
 
         if (!header) {
@@ -322,7 +322,7 @@ export class PageControl extends Element
     toggleHeaders(visible)
     {
         // get header
-        const header = this.$(this.mainDivSelector() + ` > div.header`);
+        const header = this.$(this.#mainDivSelector() + ` > div.header`);
 
         if (!header) {
             console.error("header does not exist");
@@ -346,7 +346,7 @@ export class PageControl extends Element
      */
     toggleTabHeader(id, visible)
     {
-        const header = this.$(this.mainDivSelector() + ` > div.header > div[panel="${id}"]`);
+        const header = this.$(this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`);
 
         if (!header) {
             console.warn(`invalid tab ${id}`);
@@ -360,15 +360,6 @@ export class PageControl extends Element
             header.classList.remove("hide");
         else
             header.classList.add("hide");
-    }
-
-    /**
-     * Get main div selector
-     * @return string
-     */
-    mainDivSelector()
-    {
-        return `pagecontrol > div#` + this.#mainDivId();
     }
 
     /**
@@ -434,7 +425,7 @@ export class PageControl extends Element
      */
     #expandTab(id)
     {
-        const selector = this.mainDivSelector() + ` > div.tabs > tab#` + id;
+        const selector = this.#mainDivSelector() + ` > div.tabs > tab#` + id;
         const tab      = this.$(selector);
 
         if (!tab) {
@@ -460,7 +451,7 @@ export class PageControl extends Element
      */
     #unselectHeaders()
     {
-        const header = this.$(this.mainDivSelector() + ` > div.header`);
+        const header = this.$(this.#mainDivSelector() + ` > div.header`);
 
         if (!header) {
             console.error("header does not exist");
@@ -478,7 +469,7 @@ export class PageControl extends Element
      */
     #collapseTab()
     {
-        const tab = this.$(this.mainDivSelector() + ` > div.tabs > tab:expanded`);
+        const tab = this.$(this.#mainDivSelector() + ` > div.tabs > tab:expanded`);
 
         if (!tab) {
             console.warn("no expanded tab");
@@ -497,7 +488,7 @@ export class PageControl extends Element
     #previousNextTab(direction)
     {
         // get selected header
-        const header = this.$(this.mainDivSelector() + ` > div.header > div:selected`);
+        const header = this.$(this.#mainDivSelector() + ` > div.header > div:selected`);
 
         let next = (direction === +1) ? header.nextElementSibling : header.previousElementSibling;
 
@@ -508,6 +499,15 @@ export class PageControl extends Element
         }
 
         this.showTab(next.attributes["panel"]);
+    }
+
+    /**
+     * Get main div selector
+     * @return string
+     */
+    #mainDivSelector()
+    {
+        return `pagecontrol > div#` + this.#mainDivId();
     }
 
     /**

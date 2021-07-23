@@ -148,7 +148,7 @@ export class Tab extends Element
     /**
      * Load tab script
      * @param string script
-     * @param string
+     * @param string debugHint
      * @return void
      */
     async #loadTabScript(script, debugHint)
@@ -172,8 +172,9 @@ export class Tab extends Element
                 module.initTab(this, this.pagecontrol());
             })
             .catch(error => {
-                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions
-                console.error("Init tab - FAILED - " + error.message + " - " + debugHint);
+                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
+                // make sure to comment empty/commented <script> "initTab" functions
+                console.error(`Init tab - FAILED - ${error.message} - ${debugHint}`);
             });
     }
 }

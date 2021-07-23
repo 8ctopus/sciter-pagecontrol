@@ -101,38 +101,6 @@ export class Tab extends Element
     }
 
     /**
-     * Load tab script
-     * @param string script
-     * @param string
-     * @return void
-     */
-    async #loadTabScript(script, debugHint)
-    {
-        // make sure not empty
-        script = script.trim();
-
-        if (script === "")
-            return;
-
-        // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
-        // source: https://2ality.com/2019/10/eval-via-import.html
-        // html encode javascript
-        const encodedJs = encodeURIComponent(script);
-        const dataUri   = "data:text/javascript;charset=utf-8," + encodedJs;
-
-        // load tab script
-        await import(dataUri)
-            .then(module => {
-                // initialize tab
-                module.initTab(this, this.getPageControl());
-            })
-            .catch(error => {
-                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions
-                console.error("Init tab - FAILED - " + error.message + " - " + debugHint);
-            });
-    }
-
-    /**
      * Return parent pagecontrol
      * @return DOM Element?
      */
@@ -195,6 +163,38 @@ export class Tab extends Element
             return `tab-${index}`;
 
         return id;
+    }
+
+    /**
+     * Load tab script
+     * @param string script
+     * @param string
+     * @return void
+     */
+    async #loadTabScript(script, debugHint)
+    {
+        // make sure not empty
+        script = script.trim();
+
+        if (script === "")
+            return;
+
+        // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
+        // source: https://2ality.com/2019/10/eval-via-import.html
+        // html encode javascript
+        const encodedJs = encodeURIComponent(script);
+        const dataUri   = "data:text/javascript;charset=utf-8," + encodedJs;
+
+        // load tab script
+        await import(dataUri)
+            .then(module => {
+                // initialize tab
+                module.initTab(this, this.getPageControl());
+            })
+            .catch(error => {
+                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions
+                console.error("Init tab - FAILED - " + error.message + " - " + debugHint);
+            });
     }
 }
 
@@ -266,6 +266,143 @@ export class PageControl extends Element
     }
 
     /**
+     * Tab header click event
+     * @param string event
+     * @param element clicked element
+     */
+    ["on click at > div > div.header > div"](event, element)
+    {
+        // unselect all headers
+        this.#unselectHeaders();
+
+        // collapse tab
+        this.#collapseTab();
+
+        // select clicked header
+        element.state.selected = true;
+
+        // get tab to expand
+        const id = element.getAttribute("panel");
+
+        this.#expandTab(id);
+    }
+
+    /**
+     * Show tab by id
+     * @param string tab id
+     * @return void
+     */
+    showTab(id)
+    {
+        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
+        const header   = this.$(selector);
+
+        if (!header) {
+            console.warn(`invalid tab ${id}`);
+            return;
+        }
+
+        // unselect all headers
+        this.#unselectHeaders();
+
+        // collapse tab
+        this.#collapseTab();
+
+        header.state.selected = true;
+
+        // expand tab
+        this.#expandTab(id);
+    }
+
+    /**
+     * Show next tab
+     * @return void
+     */
+    nextTab()
+    {
+        this.#previousNextTab(+1);
+    }
+
+    /**
+     * Show previous tab
+     * @return void
+     */
+    previousTab()
+    {
+        this.#previousNextTab(-1);
+    }
+
+    /**
+     * Toggle headers visibility
+     * @param bool (optional) visible
+     * @return void
+     */
+    toggleHeaders(visible)
+    {
+        // get header
+        const header = this.$(this.mainDivSelector() + ` > div.header`);
+
+        if (!header) {
+            console.error("header does not exist");
+            return;
+        }
+
+        if (typeof visible === "undefined")
+            header.classList.toggle("hide");
+        else
+        if (visible)
+            header.classList.remove("hide");
+        else
+            header.classList.add("hide");
+    }
+
+    /**
+     * Hide tab header by id
+     * @param string tab id
+     * @param bool (optional) visible
+     * @return void
+     */
+    toggleTabHeader(id, visible)
+    {
+        const header = this.$(this.mainDivSelector() + ` > div.header > div[panel="${id}"]`);
+
+        if (!header) {
+            console.warn(`invalid tab ${id}`);
+            return;
+        }
+
+        if (typeof visible === "undefined")
+            header.classList.toggle("hide");
+        else
+        if (visible)
+            header.classList.remove("hide");
+        else
+            header.classList.add("hide");
+    }
+
+    /**
+     * Get element selector
+     * @return string
+     */
+    selector()
+    {
+        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
+        if (this.id === "")
+            return "pagecontrol";
+
+        return "pagecontrol#" + this.id;
+    }
+
+    /**
+     * Get main div selector
+     * @return string
+     */
+    mainDivSelector()
+    {
+        return `pagecontrol > div#` + this.#mainDivId();
+    }
+
+    /**
      * Create headers
      * @return JSX expression
      */
@@ -319,55 +456,6 @@ export class PageControl extends Element
         return (
             <div .tabs state-html={tabs} />
         );
-    }
-
-    /**
-     * Tab header click event
-     * @param string event
-     * @param element clicked element
-     */
-    ["on click at > div > div.header > div"](event, element)
-    {
-        // unselect all headers
-        this.#unselectHeaders();
-
-        // collapse tab
-        this.#collapseTab();
-
-        // select clicked header
-        element.state.selected = true;
-
-        // get tab to expand
-        const id = element.getAttribute("panel");
-
-        this.#expandTab(id);
-    }
-
-    /**
-     * Show tab by id
-     * @param string tab id
-     * @return void
-     */
-    showTab(id)
-    {
-        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
-        const header   = this.$(selector);
-
-        if (!header) {
-            console.warn(`invalid tab ${id}`);
-            return;
-        }
-
-        // unselect all headers
-        this.#unselectHeaders();
-
-        // collapse tab
-        this.#collapseTab();
-
-        header.state.selected = true;
-
-        // expand tab
-        this.#expandTab(id);
     }
 
     /**
@@ -454,85 +542,6 @@ export class PageControl extends Element
     }
 
     /**
-     * Show next tab
-     * @return void
-     */
-    nextTab()
-    {
-        this.#previousNextTab(+1);
-    }
-
-    /**
-     * Show previous tab
-     * @return void
-     */
-    previousTab()
-    {
-        this.#previousNextTab(-1);
-    }
-
-    /**
-     * Toggle headers visibility
-     * @param bool (optional) visible
-     * @return void
-     */
-    toggleHeaders(visible)
-    {
-        // get header
-        const header = this.$(this.mainDivSelector() + ` > div.header`);
-
-        if (!header) {
-            console.error("header does not exist");
-            return;
-        }
-
-        if (typeof visible === "undefined")
-            header.classList.toggle("hide");
-        else
-        if (visible)
-            header.classList.remove("hide");
-        else
-            header.classList.add("hide");
-    }
-
-    /**
-     * Hide tab header by id
-     * @param string tab id
-     * @param bool (optional) visible
-     * @return void
-     */
-    toggleTabHeader(id, visible)
-    {
-        const header = this.$(this.mainDivSelector() + ` > div.header > div[panel="${id}"]`);
-
-        if (!header) {
-            console.warn(`invalid tab ${id}`);
-            return;
-        }
-
-        if (typeof visible === "undefined")
-            header.classList.toggle("hide");
-        else
-        if (visible)
-            header.classList.remove("hide");
-        else
-            header.classList.add("hide");
-    }
-
-    /**
-     * Get element selector
-     * @return string
-     */
-    selector()
-    {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
-        if (this.id === "")
-            return "pagecontrol";
-
-        return "pagecontrol#" + this.id;
-    }
-
-    /**
      * Get main div id
      * @return string
      */
@@ -540,14 +549,5 @@ export class PageControl extends Element
     {
         // avoid conflicts between tab stylesets when several pagecontrols exist (even recursive)
         return this.attributes["id"] ?? "pagecontrol-" + this.controlInstanceNumber;
-    }
-
-    /**
-     * Get main div selector
-     * @return string
-     */
-    mainDivSelector()
-    {
-        return `pagecontrol > div#` + this.#mainDivId();
     }
 }

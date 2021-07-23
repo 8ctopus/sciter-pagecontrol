@@ -102,7 +102,7 @@ export class Tab extends Element
 
     /**
      * Return parent pagecontrol
-     * @return DOM Element?
+     * @return DOMElement
      */
     pagecontrol()
     {

@@ -110,27 +110,6 @@ export class Tab extends Element
     }
 
     /**
-     * Get selector
-     * @param string selector tab|pagecontrol|both
-     * @return string
-     */
-    selector(selector)
-    {
-        const tab = "tab#" + this.id;
-
-        if (selector === "tab")
-            return tab;
-        else
-        if (selector === "pagecontrol")
-            return this.pagecontrol().selector();
-        else
-        if (selector === "both")
-            return this.pagecontrol().mainDivSelector() + " > div.tabs > " + tab;
-        else
-            console.error(`unknown selector ${selector}`);
-    }
-
-    /**
      * Expand tab
      */
     expand()
@@ -381,19 +360,6 @@ export class PageControl extends Element
             header.classList.remove("hide");
         else
             header.classList.add("hide");
-    }
-
-    /**
-     * Get element selector
-     * @return string
-     */
-    selector()
-    {
-        // TODO be more strict in ancestry to avoid pagecontrol in pagecontrol issues
-        if (this.id === "")
-            return "pagecontrol";
-
-        return "pagecontrol#" + this.id;
     }
 
     /**

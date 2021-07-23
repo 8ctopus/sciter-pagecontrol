@@ -19,8 +19,6 @@ button {
  */
 export function initTab(tab, pagecontrol)
 {
-    //console.debug("Init tab - " + tab.selector("both"));
-
     // handle button click event
     tab.on("click", "button#hello", function() {
         console.debug(`${tab.id} button clicked!`);

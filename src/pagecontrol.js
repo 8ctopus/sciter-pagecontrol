@@ -64,7 +64,7 @@ export class Tab extends Element
             let style = styleEl.innerHTML;
 
             // get pagecontrol id
-            const id = this.getPageControl().id;
+            const id = this.pagecontrol().id;
 
             // set styleset name
             let stylesetname = `${id}-` + this.id;
@@ -104,7 +104,7 @@ export class Tab extends Element
      * Return parent pagecontrol
      * @return DOM Element?
      */
-    getPageControl()
+    pagecontrol()
     {
         return this.closest("pagecontrol");
     }
@@ -122,10 +122,10 @@ export class Tab extends Element
             return tab;
         else
         if (selector === "pagecontrol")
-            return this.getPageControl().selector();
+            return this.pagecontrol().selector();
         else
         if (selector === "both")
-            return this.getPageControl().mainDivSelector() + " > div.tabs > " + tab;
+            return this.pagecontrol().mainDivSelector() + " > div.tabs > " + tab;
         else
             console.error(`unknown selector ${selector}`);
     }
@@ -189,7 +189,7 @@ export class Tab extends Element
         await import(dataUri)
             .then(module => {
                 // initialize tab
-                module.initTab(this, this.getPageControl());
+                module.initTab(this, this.pagecontrol());
             })
             .catch(error => {
                 // ! in case of "Init tab - FAILED - unexpected token in expression: '.'", make sure to comment empty/commented <script> "initTab" functions

@@ -255,7 +255,7 @@ export class PageControl extends Element
         }
 
         // avoid conflicts between tab stylesets when several pagecontrol exist
-        const id = this.#mainDivId()
+        const id = this.#mainDivId();
 
         // create pagecontrol
         const pagecontrol = (

@@ -200,12 +200,14 @@ export class Tab extends Element
 
 export class PageControl extends Element
 {
-    static classInstanceCounter = 0;
+    static #classInstanceCounter = 0;
+    #controlInstanceNumber;
 
     constructor()
     {
         super();
-        this.controlInstanceNumber = ++PageControl.classInstanceCounter;
+
+        this.#controlInstanceNumber = ++PageControl.#classInstanceCounter;
     }
 
     /**
@@ -216,6 +218,7 @@ export class PageControl extends Element
         // save original tabs html, will be replaced with more complex <div.header><div.tabs>tabs html
         // if not saved, createTabs() may use incorrect or partial html
         this.tabsHtml = this.innerHTML;
+
         this.render();
     }
 

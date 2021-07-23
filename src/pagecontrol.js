@@ -479,11 +479,10 @@ export class PageControl extends Element
     toggleHeaders(visible)
     {
         // get header
-        const selector = this.mainDivSelector() + ` > div.header`;
-        const header   = this.$(selector);
+        const header = this.$(this.mainDivSelector() + ` > div.header`);
 
         if (!header) {
-            console.error("header does not exist - " + selector);
+            console.error("header does not exist");
             return;
         }
 
@@ -504,8 +503,7 @@ export class PageControl extends Element
      */
     toggleTabHeader(id, visible)
     {
-        const selector = this.mainDivSelector() + ` > div.header > div[panel="${id}"]`;
-        const header   = this.$(selector);
+        const header = this.$(this.mainDivSelector() + ` > div.header > div[panel="${id}"]`);
 
         if (!header) {
             console.warn(`invalid tab ${id}`);

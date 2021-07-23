@@ -57,7 +57,7 @@ export class Tab extends Element
         // TODO see how to process includes
 
         // load SCRIPT tag from loaded element
-        let styleEl = this.$("style");
+        const styleEl = this.$("style");
 
         if (styleEl) {
             // get its content
@@ -70,7 +70,7 @@ export class Tab extends Element
             let stylesetname = `${id}-` + this.id;
 
             // create styleset in order to inject tab style
-            let styleset = `@set ${stylesetname} { ${style} }`;
+            const styleset = `@set ${stylesetname} { ${style} }`;
 
             // inject styleset in head
             document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
@@ -78,7 +78,8 @@ export class Tab extends Element
             // set styleset name for component
             stylesetname = `#${stylesetname}`;
 
-            let div = this.$("div.tab");
+            const div = this.$("div.tab");
+
             div.attributes.styleset = stylesetname;
 
             // remove style tag to avoid interfearing
@@ -89,7 +90,7 @@ export class Tab extends Element
         // TODO see how to process includes
 
         // get SCRIPT tag
-        let scriptEl = this.$("script");
+        const scriptEl = this.$("script");
 
         if (scriptEl) {
             // load script

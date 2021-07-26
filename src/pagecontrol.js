@@ -94,7 +94,7 @@ export class Tab extends Element
 
         if (scriptEl) {
             // load script
-            this.#loadTabScript(scriptEl.innerHTML, src);
+            this.loadTabScript(scriptEl.innerHTML, src);
 
             // remove script tag to avoid interfearing
             scriptEl.parentElement.removeChild(scriptEl);
@@ -151,7 +151,7 @@ export class Tab extends Element
      * @param string debugHint
      * @return void
      */
-    async #loadTabScript(script, debugHint)
+    async loadTabScript(script, debugHint)
     {
         // make sure not empty
         script = script.trim();

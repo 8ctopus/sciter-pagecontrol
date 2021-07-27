@@ -3,8 +3,6 @@
  * @author hello@octopuslabs.io
  */
 
-import {encode,decode} from "@sciter";
-
 export class Tab extends Element
 {
     constructor()
@@ -53,10 +51,8 @@ export class Tab extends Element
             this.classList.add("block");
         }
 
-        // TODO get all STYLE tags
-        // TODO see how to process includes
 
-        // load SCRIPT tag from loaded element
+        // load STYLE tag from loaded element
         const styleEl = this.$("style");
 
         if (styleEl) {
@@ -85,9 +81,6 @@ export class Tab extends Element
             // remove style tag to avoid interfearing
             styleEl.parentElement.removeChild(styleEl);
         }
-
-        // TODO get all SCRIPT tags
-        // TODO see how to process includes
 
         // get SCRIPT tag
         const scriptEl = this.$("script");
@@ -519,6 +512,6 @@ export class PageControl extends Element
     #mainDivId()
     {
         // avoid conflicts between tab stylesets when several pagecontrols exist (even recursive)
-        return this.attributes["id"] ?? "pagecontrol-" + this.controlInstanceNumber;
+        return this.attributes["id"] ?? "pagecontrol-" + this.#controlInstanceNumber;
     }
 }

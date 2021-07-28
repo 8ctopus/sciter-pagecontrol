@@ -373,7 +373,7 @@ export class PageControl extends Element
             const tabID = Tab.validateID(tab.id, i);
 
             // get caption
-            const caption = tab.attributes["title"] || tabID;
+            const caption = tab.attributes["caption"] || tabID;
 
             // get icon
             let icon = tab.attributes["icon"] || "";

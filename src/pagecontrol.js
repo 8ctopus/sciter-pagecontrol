@@ -51,7 +51,6 @@ export class Tab extends Element
             this.classList.add("block");
         }
 
-
         // load STYLE tag from loaded element
         const styleEl = this.$("style");
 
@@ -432,7 +431,7 @@ export class PageControl extends Element
         tab.expand();
 
         // dispatch event to pagecontrol
-        this.dispatchEvent(new CustomEvent("showtab", {
+        this.postEvent(new CustomEvent("showtab", {
             bubbles: true,
             detail: {
                 tab: id,

@@ -124,9 +124,9 @@ export class Tab extends Element
 
     /**
     * Check if id set and if not generate one
-    *@param id - id to validate
-    *@param index - tab index in pagecontrol
-    *@returns original id if set, fixed otherwise
+    * @param id - id to validate
+    * @param index - tab index in pagecontrol
+    * @return original id if set, fixed otherwise
     */
     static validateID(id, index)
     {

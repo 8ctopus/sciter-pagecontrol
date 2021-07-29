@@ -384,7 +384,8 @@ export class PageControl extends Element
             // get selected
             const selected = (tab.attributes["selected"] === "") ? true : false;
 
-            const i18n = "menu:" + caption.replace(/ /g, "_").toLowerCase();
+            // get data-i18n
+            const i18n = "pagecontrol:" + caption.replace(/ /g, "_").toLowerCase();
 
             return (<div panel={tabID} state-selected={selected} data-i18n={i18n}>{icon}{caption}</div>);
         });

@@ -9,10 +9,12 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 ## features
 
 - load tab contents inline or from external source
-- when loaded from external source, tab can its own css and js
+- when loaded from external source, tab can have its own css and js
+- fully skinnable control
 - support for fontawesome icons in tab header
-- header can be shown on any side and can also be hidden
+- tab headers on any side
 - select and iterate through tabs from code
+- show/hide all tabs or a specific tab
 
 ## demo
 

@@ -40,6 +40,12 @@ plaintext#logger {
     height: 30%;
 }
 
+p:focus,
+tab:focus,
+pagecontrol:focus {
+    background: red;
+}
+
 </style>
 <script type="module">
 
@@ -121,12 +127,12 @@ document.on("ready", function() {
         <button #toggleTabHeader>Show/hide mytab header</button>
     </div>
     <div #grid>
-        <pagecontrol #p1 header="left">
-            <tab caption="first tab" icon="fas fa-star">
-                <p> first tab content </p>
+        <pagecontrol #p1 header="left" tabindex="0">
+            <tab caption="first tab" icon="fas fa-star" tabindex="0" selected>
+                <p tabindex="0"> first tab content </p>
                 <button> test </button>
             </tab>
-            <tab caption="second tab" icon="fas fa-bell" selected>
+            <tab caption="second tab" icon="fas fa-bell" >
                 <p> second tab content </p>
             </tab>
             <tab caption="third tab" #mytab>

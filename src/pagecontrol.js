@@ -264,6 +264,28 @@ export class PageControl extends Element
     }
 
     /**
+     * Tab header keydown event
+     * @param string event
+     * @param element clicked element
+     */
+    ["on keydown at > div > div.header > div"](event, element)
+    {
+        // unselect all headers
+        this.#unselectHeaders();
+
+        // collapse tab
+        this.#collapseTab();
+
+        // select clicked header
+        element.state.selected = true;
+
+        // get tab to expand
+        const id = element.getAttribute("panel");
+
+        this.#expandTab(id);
+    }
+
+    /**
      * Show tab by id
      * @param string tab id
      * @return void
@@ -386,7 +408,7 @@ export class PageControl extends Element
 
             const i18n = "menu:" + caption.replace(/ /g, "_").toLowerCase();
 
-            return (<div panel={tabID} state-selected={selected} data-i18n={i18n}>{icon}{caption}</div>);
+            return (<div panel={tabID} state-selected={selected} data-i18n={i18n} tabindex="0">{icon}{caption}</div>);
         });
 
         headers = (

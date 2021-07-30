@@ -73,9 +73,10 @@ document.on("ready", function() {
     centerWindow();
 
     // add event listener
-    document.on("showtab expand collapse", function(event, element) {
+    document.on("showtab hidetab expand collapse", function(event, element) {
         switch (event.type) {
             case "showtab":
+            case "hidetab":
                 console.debug(`${event.type} ${event.detail.tab} on ${element.tag}.${element.className}#${element.id}`);
                 break;
 

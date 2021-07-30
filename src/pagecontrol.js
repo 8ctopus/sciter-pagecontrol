@@ -473,6 +473,14 @@ export class PageControl extends Element
 
         // collapse tab
         tab.collapse();
+
+        // dispatch event to pagecontrol
+        this.postEvent(new CustomEvent("hidetab", {
+            bubbles: true,
+            detail: {
+                tab: tab.id,
+            }
+        }));
     }
 
     /**

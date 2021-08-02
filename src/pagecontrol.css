@@ -91,6 +91,11 @@ pagecontrol {
         transition: blend;
     }
 
+    div.header > div:focus {
+        background: grey;
+        transition: blend;
+    }
+
     div.header > div:selected {
         background-image: url(theme:tab-item-selected);
     }

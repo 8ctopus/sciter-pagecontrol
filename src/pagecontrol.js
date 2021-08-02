@@ -110,6 +110,12 @@ export class Tab extends Element
         this.classList.add("block");
 
         this.state.expanded = true;
+
+        // get first focusable element in tab
+        const element = this.$("button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled])");
+
+        if (element)
+            element.focus();
     }
 
     /**

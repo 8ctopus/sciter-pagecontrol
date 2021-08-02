@@ -248,19 +248,7 @@ export class PageControl extends Element
      */
     ["on click at > div > div.header > div"](event, element)
     {
-        // unselect all headers
-        this.#unselectHeaders();
-
-        // collapse tab
-        this.#collapseTab();
-
-        // select clicked header
-        element.state.selected = true;
-
-        // get tab to expand
-        const id = element.getAttribute("panel");
-
-        this.#expandTab(id);
+        this.#tabHeaderClicked(element);
     }
 
     /**
@@ -273,19 +261,7 @@ export class PageControl extends Element
         if (event.code !== "KeyRETURN")
             return;
 
-        // unselect all headers
-        this.#unselectHeaders();
-
-        // collapse tab
-        this.#collapseTab();
-
-        // select clicked header
-        element.state.selected = true;
-
-        // get tab to expand
-        const id = element.getAttribute("panel");
-
-        this.#expandTab(id);
+        this.#tabHeaderClicked(element);
     }
 
     /**
@@ -379,6 +355,28 @@ export class PageControl extends Element
             header.classList.remove("hide");
         else
             header.classList.add("hide");
+    }
+
+    /**
+     * Tab header clicked
+     * @param DOMElement element - header
+     * @return void
+     */
+    #tabHeaderClicked(element)
+    {
+        // unselect all headers
+        this.#unselectHeaders();
+
+        // collapse tab
+        this.#collapseTab();
+
+        // select clicked header
+        element.state.selected = true;
+
+        // get tab to expand
+        const id = element.getAttribute("panel");
+
+        this.#expandTab(id);
     }
 
     /**

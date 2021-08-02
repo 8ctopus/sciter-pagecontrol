@@ -270,6 +270,9 @@ export class PageControl extends Element
      */
     ["on keydown at > div > div.header > div"](event, element)
     {
+        if (event.code !== "KeyRETURN")
+            return;
+
         // unselect all headers
         this.#unselectHeaders();
 

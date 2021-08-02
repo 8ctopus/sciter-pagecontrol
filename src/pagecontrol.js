@@ -114,6 +114,7 @@ export class Tab extends Element
         // get first focusable element in tab
         const element = this.$("button:not([disabled]), input:not([disabled]), [tabindex]:not([disabled])");
 
+        // focus element
         if (element)
             element.focus();
     }

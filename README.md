@@ -33,11 +33,11 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 <style src="src/pagecontrol.css" />
 <body>
     <pagecontrol header="top">
-        <tab title="first tab" selected>
+        <tab caption="first tab" selected>
             <p> first tab content </p>
             <button> test </button>
         </tab>
-        <tab title="2nd tab">
+        <tab caption="2nd tab">
             <button> another button </button>
         </tab>
         <tab src="tab4.html" icon="fas fa-star" />

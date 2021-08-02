@@ -412,7 +412,7 @@ export class PageControl extends Element
             // get data-i18n
             const i18n = "pagecontrol:" + caption.replace(/ /g, "_").toLowerCase();
 
-            return (<div panel={tabID} state-selected={selected} data-i18n={i18n} tabindex="0">{icon}{caption}</div>);
+            return (<div panel={tabID} state-selected={selected} tabindex="0" data-i18n={i18n}>{icon}{caption}</div>);
         });
 
         headers = (

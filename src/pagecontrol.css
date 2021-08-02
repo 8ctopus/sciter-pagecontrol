@@ -92,7 +92,7 @@ pagecontrol {
     }
 
     div.header > div:focus {
-        background: grey;
+        background: rgba(0,0,0,0.2);
         transition: blend;
     }
 

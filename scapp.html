@@ -44,7 +44,7 @@ plaintext#logger {
 <script type="module">
 
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
-import {addReloadWindow, centerWindow} from "vendor/8ctopus/sciter-utils/src/utils.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 
 document.on("ready", function() {
     // initialize logger
@@ -66,11 +66,14 @@ document.on("ready", function() {
     // capture unhandled exceptions
     logger.capture();
 
-    // add support for F5 reload
-    addReloadWindow();
-
     // center window on screen
-    centerWindow();
+    utils.centerWindow("screen");
+
+    // add support for F5 reload
+    utils.addReloadWindow();
+
+    // close window on escape key press
+    utils.closeWindowOnEscape();
 
     // add event listener
     document.on("showtab hidetab expand collapse", function(event, element) {

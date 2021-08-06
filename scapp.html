@@ -66,14 +66,17 @@ document.on("ready", function() {
     // capture unhandled exceptions
     logger.capture();
 
-    // center window on screen
-    utils.centerWindow("screen");
-
     // add support for F5 reload
     utils.addReloadWindow();
 
+    // center window on screen
+    utils.centerWindow("screen");
+
     // close window on escape key press
     utils.closeWindowOnEscape();
+
+    // bring window to front
+    utils.windowToFront();
 
     // add event listener
     document.on("showtab hidetab expand collapse", function(event, element) {

@@ -263,12 +263,16 @@ export class PageControl extends Element
      * @param string event
      * @param element clicked element
      */
-    ["on keydown at > div > div.header > div"](event, element)
+    ["on keyup at > div > div.header > div"](event, element)
     {
-        if (event.code !== "KeyRETURN")
-            return;
-
-        this.#tabHeaderClicked(element);
+        if (event.code === "KeyRETURN")
+            this.#tabHeaderClicked(element);
+        else
+        if (event.code === "KeyLEFT" || event.code === "KeyUP")
+            this.#getPreviousNextTabHeader(-1, "focus").focus();
+        else
+        if (event.code === "KeyRIGHT" || event.code === "KeyDOWN")
+            this.#getPreviousNextTabHeader(+1, "focus").focus();
     }
 
     /**
@@ -304,7 +308,7 @@ export class PageControl extends Element
      */
     nextTab()
     {
-        this.#previousNextTab(+1);
+        this.#showPreviousNextTab(+1);
     }
 
     /**
@@ -313,7 +317,7 @@ export class PageControl extends Element
      */
     previousTab()
     {
-        this.#previousNextTab(-1);
+        this.#showPreviousNextTab(-1);
     }
 
     /**
@@ -515,23 +519,35 @@ export class PageControl extends Element
 
     /**
      * Show previous or next tab
-     * @param int +1 next, -1 previous
+     * @param int direction +1 next, -1 previous
      * @return void
      */
-    #previousNextTab(direction)
+    #showPreviousNextTab(direction)
+    {
+        const next = this.#getPreviousNextTabHeader(direction, "selected");
+
+        this.showTab(next.attributes["panel"]);
+    }
+
+    /**
+     * Get previous or next tab header
+     * @param int direction +1 next, -1 previous
+     * @param string selected or focus
+     * @return void
+     */
+    #getPreviousNextTabHeader(direction, state)
     {
         // get selected header
-        const header = this.$(this.#mainDivSelector() + ` > div.header > div:selected`);
+        const header = this.$(this.#mainDivSelector() + ` > div.header > div:${state}`);
 
         let next = (direction === +1) ? header.nextElementSibling : header.previousElementSibling;
 
-        if (!next) {
-            const parent = header.parentElement;
+        if (next)
+            return next;
 
-            next = (direction === +1) ? parent.firstChild : parent.lastChild;
-        }
+        const parent = header.parentElement;
 
-        this.showTab(next.attributes["panel"]);
+        return (direction === +1) ? parent.firstChild : parent.lastChild;
     }
 
     /**

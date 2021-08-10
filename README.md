@@ -15,6 +15,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - tab headers on any side
 - select and iterate through tabs from code
 - show/hide all tabs or a specific tab
+- support screenreaders
 
 ## demo
 

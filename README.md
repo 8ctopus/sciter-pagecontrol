@@ -33,7 +33,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 ```html
 <style src="src/pagecontrol.css" />
 <body>
-    <pagecontrol header="top">
+    <pagecontrol header-position="top" header-visible="true">
         <tab caption="first tab" selected>
             <p> first tab content </p>
             <button> test </button>

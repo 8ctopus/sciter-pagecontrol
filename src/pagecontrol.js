@@ -214,7 +214,7 @@ export class PageControl extends Element
         const tabs = this.#createTabs();
 
         // header position
-        const position = this.attributes["header"] ?? "";
+        const position = this.attributes["header-position"] ?? "";
 
         let headersFirst = true;
         let classes      = "";

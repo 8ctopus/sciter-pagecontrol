@@ -124,7 +124,7 @@ document.on("ready", function() {
         <button #toggleTabHeader>Show/hide mytab header</button>
     </div>
     <div #grid>
-        <pagecontrol #p1 header-position="left" header-visible="true">
+        <pagecontrol #p1 header-position="left">
             <tab caption="first tab" icon="fas fa-star" selected>
                 <p> first tab content </p>
                 <button> test </button>
@@ -133,7 +133,7 @@ document.on("ready", function() {
                 <p> second tab content </p>
             </tab>
             <tab caption="third tab" #mytab>
-            <pagecontrol #p5 header-position="left" header-visible="true">
+            <pagecontrol #p5 header-position="left">
                 <tab caption="first tab" icon="fas fa-star">
                     <p> first tab content </p>
                     <button> test </button>

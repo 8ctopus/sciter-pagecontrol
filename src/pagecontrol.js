@@ -51,6 +51,10 @@ export class Tab extends Element
             this.classList.add("block");
         }
 
+        // hide tab
+        if (this.hasAttribute("hide"))
+            this.pagecontrol().toggleTabHeader(this.id);
+
         // load STYLE tag from loaded element
         const styleEl = this.$("style");
 

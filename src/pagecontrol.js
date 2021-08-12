@@ -246,6 +246,10 @@ export class PageControl extends Element
         );
 
         this.content(pagecontrol);
+
+        // header visible
+        if (this.attributes["header-visible"] === "false")
+            this.toggleHeaders(false);
     }
 
     /**

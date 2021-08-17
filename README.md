@@ -45,6 +45,20 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
     </pagecontrol>
 ```
 
+## styling
+
+To apply a custom style to the control, you will need to use the `pagecontrol` `@set`
+
+```css
+@set pagecontrol < pagecontrol-base {
+
+    /* set tab border to red */
+    div.tabs {
+        border: 1dip solid red;
+    }
+}
+```
+
 ## todo
 
 - use exceptions instead of console logging?

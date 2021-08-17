@@ -249,9 +249,10 @@ export class PageControl extends Element
             </div>
         );
 
+        // synchronous call
         this.content(pagecontrol);
 
-        // header visible
+        // should headers be hidden
         if (this.hasAttribute("hide-headers"))
             this.toggleHeaders(false);
     }

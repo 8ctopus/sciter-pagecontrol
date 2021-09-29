@@ -11,6 +11,8 @@ button {
 </style>
 <script type="module">
 
+import * as env from "@env";
+
 /**
  * Initialize tab
  * @param  DOM Element tab
@@ -22,6 +24,8 @@ export function initTab(tab, pagecontrol)
     // handle button click event
     tab.on("click", "button#hello", function() {
         console.debug(`${tab.id} button clicked!`);
+
+        env.launch("https://duckduckgo.com");
     });
 
     // handle show tab event

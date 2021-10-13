@@ -20,9 +20,9 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 ## demo
 
 - git clone the repository
-- run `install.bat` to download the latest sciter binaries and the sciter package manager
+- run `install.bat` on Windows or `install.sh` on Mac to download the latest sciter binaries and the sciter package manager
 - install packages `php bin/spm.phar install`
-- run `scapp.bat`
+- run `scapp.bat` or `scapp.sh`
 
 ## install
 

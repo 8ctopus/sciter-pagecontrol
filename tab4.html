@@ -11,7 +11,11 @@ button {
 </style>
 <script type="module">
 
+// import works because @
 import * as env from "@env";
+
+// import doesn't work, import in main code and make it globally accessible
+//import {test} from "js/test.js";
 
 /**
  * Initialize tab
@@ -36,6 +40,8 @@ export function initTab(tab, pagecontrol)
 
         // do something when tab is shown
         console.debug(`${tab.id} shown`);
+
+        test();
     });
 }
 

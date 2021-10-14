@@ -45,6 +45,7 @@ plaintext#logger {
 
 import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
 import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
+import {test} from "js/test.js";
 
 // initialize logger
 logger.init();
@@ -56,6 +57,9 @@ logger.attach();
 logger.capture();
 
 document.on("ready", function() {
+    // make test function visible on tabs
+    globalThis.test = test;
+
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
 

@@ -98,10 +98,12 @@ pagecontrol {
 
     div.header > div:selected {
         background-image: url(theme:tab-item-selected);
+        background-repeat: stretch;
     }
 
     div.header > div:selected:hover {
         background-image: url(theme:tab-item-selected);
+        background-repeat: stretch;
         transition: none;
     }
 

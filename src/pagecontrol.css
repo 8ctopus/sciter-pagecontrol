@@ -92,19 +92,23 @@ pagecontrol {
     }
 
     div.header > div:focus {
-        background: rgba(0,0,0,0.2);
         transition: blend;
+
+        background: rgba(0,0,0,0.2);
     }
 
     div.header > div:selected {
+        outline: 1 dip dashed rgba(0,0,0,0.2);
+
         background-image: url(theme:tab-item-selected);
         background-repeat: stretch;
     }
 
     div.header > div:selected:hover {
+        transition: none;
+
         background-image: url(theme:tab-item-selected);
         background-repeat: stretch;
-        transition: none;
     }
 
     div.header > div:selected:first-child,

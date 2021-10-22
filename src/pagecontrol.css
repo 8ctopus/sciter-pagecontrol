@@ -77,8 +77,7 @@ pagecontrol {
         max-width: auto;
         height: max-content;
 
-        border-left: none;
-        border-right: 1dip solid rgba(0,0,0,0.1);
+        border: 1dip solid rgba(0,0,0,0.1);
 
         padding: 3dip 5dip;
 
@@ -87,16 +86,6 @@ pagecontrol {
         text-overflow: ellipsis;
         overflow-x: hidden;
         white-space: nowrap;
-    }
-
-    div.side > div.header > div {
-        border-left: 1dip solid rgba(0,0,0,0.1);
-        border-right: none;
-        border-bottom: 1dip solid rgba(0,0,0,0.1);
-    }
-
-    div.side > div.header > div:first-child {
-        border-top: 1dip solid rgba(0,0,0,0.1);
     }
 
     div.header > div:hover {

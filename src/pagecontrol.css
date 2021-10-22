@@ -62,6 +62,7 @@ pagecontrol {
     // header on the right or left
     div.side > div.header {
         flow: vertical;
+
         height: *;
     }
 
@@ -76,56 +77,71 @@ pagecontrol {
         max-width: auto;
         height: max-content;
 
-        padding: 3dip 8dip;
+        border-left: none;
+        border-right: 1dip solid rgba(0,0,0,0.1);
 
-        background-image: url(theme:tab-item-normal);
-        background-repeat: stretch;
+        padding: 3dip 5dip;
+
+        background: rgb(240,240,240);
 
         text-overflow: ellipsis;
         overflow-x: hidden;
         white-space: nowrap;
     }
 
+    div.side > div.header > div {
+        border-left: 1dip solid rgba(0,0,0,0.1);
+        border-right: none;
+        border-bottom: 1dip solid rgba(0,0,0,0.1);
+    }
+
+    div.side > div.header > div:first-child {
+        border-top: 1dip solid rgba(0,0,0,0.1);
+    }
+
     div.header > div:hover {
-        background-image: url(theme:tab-item-hover);
+        background: rgb(216,234,249);
+
         transition: blend;
     }
 
     div.header > div:focus {
-        transition: blend;
+        //background: rgba(0,0,0,0.2);
+        box-shadow: inset 0 0 8dip rgb(114,235,255);
 
-        background: rgba(0,0,0,0.2);
+        transition: blend;
     }
 
     div.header > div:selected {
-        outline: 1 dip dashed rgba(0,0,0,0.2);
+        outline: none;
 
-        background-image: url(theme:tab-item-selected);
-        background-repeat: stretch;
+        background: rgb(204,204,204);
+        box-shadow: inset 0 0 8dip rgb(204,204,204);
     }
 
     div.header > div:selected:hover {
+        background: rgb(117,225,255);
+
         transition: none;
-
-        background-image: url(theme:tab-item-selected);
-        background-repeat: stretch;
-    }
-
-    div.header > div:selected:first-child,
-    div.header > div:selected:hover:first-child {
-        background-image: url(theme:tab-item-leftmost-selected);
     }
 
     /*
-    :root:focus div.header div:selected {
-        background-image: url(theme:tab-item-focused);
+    div.header > div:selected:first-child,
+    div.header > div:selected:hover:first-child {
+        background-image: none;
     }
     */
 
+    :root:focus div.header div:selected {
+        background-image: none;
+    }
+
     /* outline active tab content if we've gotten focus by tab */
+    /*
     :root:tab-focus > div.header > div:selected > * {
         outline: 1dip dotted invert;
     }
+    */
 
     /* header icon */
     div.header > div > i {

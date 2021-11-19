@@ -56,7 +56,7 @@ logger.attach();
 // capture unhandled exceptions
 logger.capture();
 
-document.on("ready", function() {
+document.ready = function() {
     // make test function visible on tabs
     globalThis.test = test;
 
@@ -116,7 +116,7 @@ document.on("ready", function() {
     // show tab
     pagecontrol.showTab("tab-2");
     pagecontrol.showTab("mytab");
-});
+}
 
 </script>
 </head>

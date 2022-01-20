@@ -78,7 +78,7 @@ To apply a custom style to the control, you will need to use the `pagecontrol` `
 
 ## known issues
 
-- module `import` in tab file does not work unless it is a sciter module. You need to import in the main code and make the imported visible globally. see `tab4.html`.
+- module `import` in tab file does not work unless it is a sciter module. You need to import in the main code and make the imported visible globally. see `tab4.htm`.
 
 ## todo
 

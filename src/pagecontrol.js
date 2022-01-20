@@ -3,38 +3,30 @@
  * @author hello@octopuslabs.io
  */
 
-export class Tab extends Element
-{
-    constructor()
-    {
+export class Tab extends Element {
+    constructor() {
         super();
     }
 
     /**
      * Called when element is attached to the DOM tree
      */
-    componentDidMount()
-    {
+    componentDidMount() {
         this.render();
     }
 
     /**
      * Render component
      */
-    render()
-    {
-        const src = this.attributes["src"] || null;
+    render() {
+        const source = this.attributes["src"] || undefined;
 
         // check if id set if not generate one
         this.id = Tab.validateID(this.id, this.elementIndex + 1);
 
         let html = "";
 
-        if (!src)
-            html = this.innerHTML;
-        else
-            // include source
-            html = `<include src="` + src + `"/>`;
+        html = !source ? this.innerHTML : "<include src=\"" + source + "\"/>";
 
         // create tab
         const tab = (
@@ -56,11 +48,11 @@ export class Tab extends Element
             this.pagecontrol().toggleTabHeader(this.id);
 
         // load STYLE tag from loaded element
-        const styleEl = this.$("style");
+        const styleElement = this.$("style");
 
-        if (styleEl) {
+        if (styleElement) {
             // get its content
-            let style = styleEl.innerHTML;
+            const style = styleElement.innerHTML;
 
             // get pagecontrol id
             const id = this.pagecontrol().id;
@@ -82,35 +74,33 @@ export class Tab extends Element
             div.attributes.styleset = stylesetname;
 
             // remove style tag to avoid interfearing
-            styleEl.parentElement.removeChild(styleEl);
+            styleElement.remove();
         }
 
         // get SCRIPT tag
-        const scriptEl = this.$("script");
+        const scriptElement = this.$("script");
 
-        if (scriptEl) {
+        if (scriptElement) {
             // load script
-            this.loadTabScript(scriptEl.innerHTML, src);
+            this.loadTabScript(scriptElement.innerHTML, source);
 
             // remove script tag to avoid interfearing
-            scriptEl.parentElement.removeChild(scriptEl);
+            scriptElement.remove();
         }
     }
 
     /**
      * Return parent pagecontrol
-     * @return DOMElement
+     * @returns {Element}
      */
-    pagecontrol()
-    {
+    pagecontrol() {
         return this.closest("pagecontrol");
     }
 
     /**
      * Expand tab
      */
-    expand()
-    {
+    expand() {
         this.classList.add("block");
 
         this.state.expanded = true;
@@ -126,21 +116,19 @@ export class Tab extends Element
     /**
      * Collapse tab
      */
-    collapse()
-    {
+    collapse() {
         this.classList.remove("block");
 
         this.state.expanded = false;
     }
 
     /**
-    * Check if id set and if not generate one
-    * @param id - id to validate
-    * @param index - tab index in pagecontrol
-    * @return original id if set, fixed otherwise
-    */
-    static validateID(id, index)
-    {
+     * Check if id set and if not generate one
+     * @param {string} id - id to validate
+     * @param {number} index - tab index in pagecontrol
+     * @returns {string} original id if set, fixed otherwise
+     */
+    static validateID(id, index) {
         // create id if not set
         if (id === "")
             return `tab-${index}`;
@@ -150,12 +138,10 @@ export class Tab extends Element
 
     /**
      * Load tab script
-     * @param string script
-     * @param string debugHint
-     * @return void
+     * @param {string} script
+     * @param {string} debugHint
      */
-    async loadTabScript(script, debugHint)
-    {
+    async loadTabScript(script, debugHint) {
         // make sure not empty
         script = script.trim();
 
@@ -166,15 +152,15 @@ export class Tab extends Element
         // source: https://2ality.com/2019/10/eval-via-import.html
         // html encode javascript
         const encodedJs = encodeURIComponent(script);
-        const dataUri   = "data:text/javascript;charset=utf-8," + encodedJs;
+        const dataUri = "data:text/javascript;charset=utf-8," + encodedJs;
 
         // load tab script
         await import(dataUri)
-            .then(module => {
+            .then((module) => {
                 // initialize tab
                 module.initTab(this, this.pagecontrol());
             })
-            .catch(error => {
+            .catch((error) => {
                 // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
                 // make sure to comment empty/commented <script> "initTab" functions
                 if (typeof error === "object" && error !== null)
@@ -185,13 +171,11 @@ export class Tab extends Element
     }
 }
 
-export class PageControl extends Element
-{
+export class PageControl extends Element {
     static #classInstanceCounter = 0;
     #controlInstanceNumber;
 
-    constructor()
-    {
+    constructor() {
         super();
 
         this.#controlInstanceNumber = ++PageControl.#classInstanceCounter;
@@ -200,8 +184,7 @@ export class PageControl extends Element
     /**
      * Called when element is attached to the DOM tree
      */
-    componentDidMount()
-    {
+    componentDidMount() {
         // save original tabs html, will be replaced with more complex <div.header><div.tabs>tabs html
         // if not saved, createTabs() may use incorrect or partial html
         this.tabsHtml = this.innerHTML;
@@ -212,8 +195,7 @@ export class PageControl extends Element
     /**
      * Render component
      */
-    render()
-    {
+    render() {
         // create tab headers
         const headers = this.#createHeaders();
 
@@ -224,12 +206,12 @@ export class PageControl extends Element
         const position = this.attributes["header-position"] ?? "";
 
         let headersFirst = true;
-        let classes      = "";
+        let classes = "";
 
         switch (position) {
             case "right":
                 headersFirst = false;
-                classes      = "side";
+                classes = "side";
                 break;
 
             case "bottom":
@@ -262,40 +244,44 @@ export class PageControl extends Element
 
     /**
      * Tab header click event
-     * @param string event
-     * @param element clicked element
+     * @param {Event} event
+     * @param {Element} element
      */
-    ["on click at > div > div.header > div"](event, element)
-    {
+    ["on click at > div > div.header > div"](event, element) {
         this.#tabHeaderClicked(element);
     }
 
     /**
      * Tab header keydown event
-     * @param string event
-     * @param element clicked element
+     * @param {Event} event
+     * @param {Element} element
      */
-    ["on keyup at > div > div.header > div"](event, element)
-    {
-        if (event.code === "KeyRETURN")
-            this.#tabHeaderClicked(element);
-        else
-        if (event.code === "KeyLEFT" || event.code === "KeyUP")
-            this.#getPreviousNextTabHeader(-1, "focus").focus();
-        else
-        if (event.code === "KeyRIGHT" || event.code === "KeyDOWN")
-            this.#getPreviousNextTabHeader(+1, "focus").focus();
+    ["on keyup at > div > div.header > div"](event, element) {
+        switch (event.code) {
+            case "KeyRETURN": {
+                this.#tabHeaderClicked(element);
+                break;
+            }
+            case "KeyLEFT":
+            case "KeyUP": {
+                this.#getPreviousNextTabHeader(-1, "focus").focus();
+                break;
+            }
+            case "KeyRIGHT":
+            case "KeyDOWN":
+                this.#getPreviousNextTabHeader(+1, "focus").focus();
+                // No default
+                break;
+        }
     }
 
     /**
      * Show tab by id
-     * @param string tab id
-     * @return void
+     * @param {string} id - tab id
      */
-    showTab(id)
-    {
+    showTab(id) {
         const selector = this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`;
-        const header   = this.$(selector);
+        const header = this.$(selector);
 
         if (!header) {
             console.warn(`invalid tab ${id}`);
@@ -316,31 +302,25 @@ export class PageControl extends Element
 
     /**
      * Show next tab
-     * @return void
      */
-    nextTab()
-    {
+    nextTab() {
         this.#showPreviousNextTab(+1);
     }
 
     /**
      * Show previous tab
-     * @return void
      */
-    previousTab()
-    {
+    previousTab() {
         this.#showPreviousNextTab(-1);
     }
 
     /**
      * Toggle headers visibility
-     * @param bool (optional) visible
-     * @return void
+     * @param {boolean} visible - (optional)
      */
-    toggleHeaders(visible)
-    {
+    toggleHeaders(visible) {
         // get header
-        const header = this.$(this.#mainDivSelector() + ` > div.header`);
+        const header = this.$(this.#mainDivSelector() + " > div.header");
 
         if (!header) {
             console.error("header does not exist");
@@ -358,12 +338,10 @@ export class PageControl extends Element
 
     /**
      * Hide tab header by id
-     * @param string tab id
-     * @param bool (optional) visible
-     * @return void
+     * @param {string} id - tab id
+     * @param {boolean} visible - (optional)
      */
-    toggleTabHeader(id, visible)
-    {
+    toggleTabHeader(id, visible) {
         const header = this.$(this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`);
 
         if (!header) {
@@ -382,11 +360,9 @@ export class PageControl extends Element
 
     /**
      * Tab header clicked
-     * @param DOMElement element - header
-     * @return void
+     * @param {Element} element - header
      */
-    #tabHeaderClicked(element)
-    {
+    #tabHeaderClicked(element) {
         // unselect all headers
         this.#unselectHeaders();
 
@@ -404,19 +380,18 @@ export class PageControl extends Element
 
     /**
      * Create headers
-     * @return JSX expression
+     * @returns {JSX expression}
      */
-    #createHeaders()
-    {
+    #createHeaders() {
         // get tabs
-        const tabs = this.$$(`> tab`);
+        const tabs = this.$$("> tab");
 
         // create headers
-        let headers = tabs.map(function(tab, i) {
-            i++;
+        let headers = tabs.map(function(tab, index) {
+            index++;
 
             // validate id if not yet set
-            const tabID = Tab.validateID(tab.id, i);
+            const tabID = Tab.validateID(tab.id, index);
 
             // get caption
             const caption = tab.attributes["caption"] || tabID;
@@ -437,7 +412,7 @@ export class PageControl extends Element
         });
 
         headers = (
-            <div .header>
+            <div class="header">
                 {headers}
             </div>
         );
@@ -447,10 +422,9 @@ export class PageControl extends Element
 
     /**
      * Create tabs
-     * @return JSX expression
+     * @returns {JSX expression}
      */
-    #createTabs()
-    {
+    #createTabs() {
         // get tabs from html (we will replace with custom html to add header)
         const tabs = this.tabsHtml;
 
@@ -461,13 +435,11 @@ export class PageControl extends Element
 
     /**
      * Expand tab
-     * @param string tab id
-     * @return void
+     * @param {string} id - tab id
      */
-    #expandTab(id)
-    {
-        const selector = this.#mainDivSelector() + ` > div.tabs > tab#` + id;
-        const tab      = this.$(selector);
+    #expandTab(id) {
+        const selector = this.#mainDivSelector() + " > div.tabs > tab#" + id;
+        const tab = this.$(selector);
 
         if (!tab) {
             console.error(`invalid tab ${id}`);
@@ -482,17 +454,15 @@ export class PageControl extends Element
             bubbles: true,
             detail: {
                 tab: id,
-            }
+            },
         }));
     }
 
     /**
      * Unselect all headers
-     * @return void
      */
-    #unselectHeaders()
-    {
-        const header = this.$(this.#mainDivSelector() + ` > div.header`);
+    #unselectHeaders() {
+        const header = this.$(this.#mainDivSelector() + " > div.header");
 
         if (!header) {
             console.error("header does not exist");
@@ -500,17 +470,15 @@ export class PageControl extends Element
         }
 
         // loop through header tabs
-        for (let child of header.children)
+        for (const child of header.children)
             child.state.selected = false;
     }
 
     /**
      * Collapse tab
-     * @return void
      */
-    #collapseTab()
-    {
-        const tab = this.$(this.#mainDivSelector() + ` > div.tabs > tab:expanded`);
+    #collapseTab() {
+        const tab = this.$(this.#mainDivSelector() + " > div.tabs > tab:expanded");
 
         if (!tab) {
             console.warn("no expanded tab");
@@ -525,17 +493,15 @@ export class PageControl extends Element
             bubbles: true,
             detail: {
                 tab: tab.id,
-            }
+            },
         }));
     }
 
     /**
      * Show previous or next tab
-     * @param int direction +1 next, -1 previous
-     * @return void
+     * @param {number} direction - +1 next, -1 previous
      */
-    #showPreviousNextTab(direction)
-    {
+    #showPreviousNextTab(direction) {
         const next = this.#getPreviousNextTabHeader(direction, "selected");
 
         this.showTab(next.attributes["panel"]);
@@ -543,16 +509,15 @@ export class PageControl extends Element
 
     /**
      * Get previous or next tab header
-     * @param int direction +1 next, -1 previous
-     * @param string selected or focus
-     * @return void
+     * @param {number} direction - +1 next, -1 previous
+     * @param {string} state - selected or focus
+     * @returns {Element}
      */
-    #getPreviousNextTabHeader(direction, state)
-    {
+    #getPreviousNextTabHeader(direction, state) {
         // get selected header
         const header = this.$(this.#mainDivSelector() + ` > div.header > div:${state}`);
 
-        let next = (direction === +1) ? header.nextElementSibling : header.previousElementSibling;
+        const next = (direction === +1) ? header.nextElementSibling : header.previousElementSibling;
 
         if (next)
             return next;
@@ -564,19 +529,17 @@ export class PageControl extends Element
 
     /**
      * Get main div selector
-     * @return string
+     * @returns {string}
      */
-    #mainDivSelector()
-    {
-        return `pagecontrol > div#` + this.#mainDivId();
+    #mainDivSelector() {
+        return "pagecontrol > div#" + this.#mainDivId();
     }
 
     /**
      * Get main div id
-     * @return string
+     * @returns {string}
      */
-    #mainDivId()
-    {
+    #mainDivId() {
         // avoid conflicts between tab stylesets when several pagecontrols exist (even recursive)
         return this.attributes["id"] ?? "pagecontrol-" + this.#controlInstanceNumber;
     }

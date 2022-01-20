@@ -54,7 +54,7 @@ Logger.init();
 Logger.attach();
 
 // capture unhandled exceptions
-Logger.capture(unhandledExceptionHandler);
+Logger.capture();
 
 document.on("ready", function() {
     // make test function visible on tabs
@@ -93,7 +93,7 @@ document.on("ready", function() {
     });
 
     // cycle through pagecontrol tabs programmatically
-    let pagecontrol = document.$("pagecontrol#p1");
+    const pagecontrol = document.$("pagecontrol#p1");
 
     document.on("click", "button#previous", function() {
         pagecontrol.previousTab();
@@ -117,17 +117,6 @@ document.on("ready", function() {
     pagecontrol.showTab("tab-2");
     pagecontrol.showTab("mytab");
 });
-
-/**
- * Unhandled exception handler
- * @param  Error|String e
- * @return void
- */
-function unhandledExceptionHandler(e)
-{
-    // log exception using exception if it exists, error otherwise
-    typeof console.exception === "function" ? console.exception(e) : console.error(e);
-}
 
 </script>
 </head>

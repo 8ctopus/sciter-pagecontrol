@@ -4,7 +4,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 "It is a multi-page component that provides a container to hold a variety of controls per page. Much like a real-world notebook, it displays a "tab" per page so that the user can quickly switch between pages. Each page can contain its own selection of controls." [[1]](https://wiki.freepascal.org/TPageControl)
 
-![sciter pagecontrol screenshot](screenshot.png)
+![sciter pagecontrol screenshot](https://github.com/8ctopus/sciter-pagecontrol/raw/master/screenshot.png)
 
 ## features
 
@@ -34,7 +34,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ### using npm
 
-- install package `npm install sciter-virtual-table` (not yet)
+- install package `npm install sciter-pagecontrol`
 
 ### copy source
 

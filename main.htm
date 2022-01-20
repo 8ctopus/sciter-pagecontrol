@@ -56,7 +56,7 @@ logger.attach();
 // capture unhandled exceptions
 logger.capture(unhandledExceptionHandler);
 
-document.ready = function() {
+document.on("ready", function() {
     // make test function visible on tabs
     globalThis.test = test;
 
@@ -119,7 +119,7 @@ document.ready = function() {
     // show tab
     pagecontrol.showTab("tab-2");
     pagecontrol.showTab("mytab");
-}
+});
 
 /**
  * Unhandled exception handler

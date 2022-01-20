@@ -36,12 +36,19 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 - install package `npm install sciter-pagecontrol`
 
-### copy source
+### using source
 
-- add the `src` dir to your project
+- copy the `src` dir to your project
 
 ```html
-<style src="src/pagecontrol.css" />
+<style>
+
+/* include using npm */
+@import url(node_modules/sciter-pagecontrol/src/pagecontrol.css);
+
+/* include using src dir */
+@import url(src/pagecontrol.css);
+</style>
 <body>
     <pagecontrol header-position="top" header-visible="true">
         <tab caption="first tab" selected>

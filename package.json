@@ -1,6 +1,6 @@
 {
   "name": "sciter-pagecontrol",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "This is a [sciter.js](https://sciter.com/) pagecontrol component.",
   "scripts": {
     "install-sdk": "node ./node_modules/sciter-sandbox/scripts/install.mjs cleanup",

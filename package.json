@@ -1,6 +1,6 @@
 {
   "name": "sciter-pagecontrol",
-  "version": "1.6.12",
+  "version": "1.7.0",
   "description": "This is a [sciter.js](https://sciter.com/) pagecontrol component.",
   "scripts": {
     "install-sdk": "node ./node_modules/sciter-sandbox/scripts/install.mjs cleanup",
@@ -19,8 +19,7 @@
     "url": "https://github.com/8ctopus/sciter-pagecontrol/issues"
   },
   "homepage": "https://github.com/8ctopus/sciter-pagecontrol#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "sciter-logger": "^1.1.3",
     "sciter-sandbox": "^1.1.5",

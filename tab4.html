@@ -19,12 +19,10 @@ import * as env from "@env";
 
 /**
  * Initialize tab
- * @param  DOM Element tab
- * @param  DOM Element pagecontrol
- * @return void
+ * @param {Element} tab
+ * @param {Element} pagecontrol
  */
-export function initTab(tab, pagecontrol)
-{
+export function initTab(tab, pagecontrol) {
     // handle button click event
     tab.on("click", "button#hello", function() {
         console.debug(`${tab.id} button clicked!`);

@@ -4,10 +4,6 @@
  */
 
 export class Tab extends Element {
-    constructor() {
-        super();
-    }
-
     /**
      * Called when element is attached to the DOM tree
      */
@@ -19,7 +15,7 @@ export class Tab extends Element {
      * Render component
      */
     render() {
-        const source = this.attributes["src"] || undefined;
+        const source = this.attributes.src || undefined;
 
         // check if id set if not generate one
         this.id = Tab.validateID(this.id, this.elementIndex + 1);
@@ -35,7 +31,7 @@ export class Tab extends Element {
 
         this.content(tab);
 
-        const expanded = (this.attributes["selected"] === "") ? true : false;
+        const expanded = (this.attributes.selected === "");
 
         // if tab is selected, show it (event doesn't trigger at this point)
         if (expanded) {
@@ -156,11 +152,11 @@ export class Tab extends Element {
 
         // load tab script
         await import(dataUri)
-            .then((module) => {
+            .then(module => {
                 // initialize tab
                 module.initTab(this, this.pagecontrol());
             })
-            .catch((error) => {
+            .catch(error => {
                 // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
                 // make sure to comment empty/commented <script> "initTab" functions
                 if (typeof error === "object" && error !== null)
@@ -221,6 +217,9 @@ export class PageControl extends Element {
             case "left":
                 classes = "side";
                 break;
+
+            case "up":
+            default:
         }
 
         // avoid conflicts between tab stylesets when several pagecontrol exist
@@ -262,16 +261,20 @@ export class PageControl extends Element {
                 this.#tabHeaderClicked(element);
                 break;
             }
+
             case "KeyLEFT":
             case "KeyUP": {
                 this.#getPreviousNextTabHeader(-1, "focus").focus();
                 break;
             }
+
             case "KeyRIGHT":
             case "KeyDOWN":
                 this.#getPreviousNextTabHeader(+1, "focus").focus();
                 // No default
                 break;
+
+            default:
         }
     }
 
@@ -380,7 +383,7 @@ export class PageControl extends Element {
 
     /**
      * Create headers
-     * @returns {JSX expression}
+     * @returns {JSX}
      */
     #createHeaders() {
         // get tabs
@@ -394,16 +397,16 @@ export class PageControl extends Element {
             const tabID = Tab.validateID(tab.id, index);
 
             // get caption
-            const caption = tab.attributes["caption"] || tabID;
+            const caption = tab.attributes.caption || tabID;
 
             // get icon
-            let icon = tab.attributes["icon"] || "";
+            let icon = tab.attributes.icon || "";
 
             if (icon !== "")
                 icon = <i class={icon}></i>;
 
             // get selected
-            const selected = (tab.attributes["selected"] === "") ? true : false;
+            const selected = (tab.attributes.selected === "");
 
             // get data-i18n
             const i18n = "pagecontrol:" + caption.replace(/ /g, "_").toLowerCase();
@@ -422,7 +425,7 @@ export class PageControl extends Element {
 
     /**
      * Create tabs
-     * @returns {JSX expression}
+     * @returns {JSX}
      */
     #createTabs() {
         // get tabs from html (we will replace with custom html to add header)
@@ -504,7 +507,7 @@ export class PageControl extends Element {
     #showPreviousNextTab(direction) {
         const next = this.#getPreviousNextTabHeader(direction, "selected");
 
-        this.showTab(next.attributes["panel"]);
+        this.showTab(next.attributes.panel);
     }
 
     /**
@@ -541,6 +544,6 @@ export class PageControl extends Element {
      */
     #mainDivId() {
         // avoid conflicts between tab stylesets when several pagecontrols exist (even recursive)
-        return this.attributes["id"] ?? "pagecontrol-" + this.#controlInstanceNumber;
+        return this.attributes.id ?? "pagecontrol-" + this.#controlInstanceNumber;
     }
 }

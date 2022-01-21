@@ -23,9 +23,9 @@ export function initTab(tab, pagecontrol) {
     });
 
     // handle show tab event
-    pagecontrol.on("showtab", function(event, element) {
+    pagecontrol.on("showtab", function(event, _element) {
         // check that event is for this tab
-        if (tab.id != event.detail.tab)
+        if (tab.id !== event.detail.tab)
             return;
 
         // do something when tab is shown

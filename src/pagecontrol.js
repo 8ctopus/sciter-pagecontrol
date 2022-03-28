@@ -59,16 +59,14 @@ export class Tab extends Element {
             // create styleset in order to inject tab style
             const styleset = `@set ${stylesetname} { ${style} }`;
 
-            // inject styleset in head
-            document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
-
-            // set styleset name for component
-            stylesetname = `#${stylesetname}`;
-
             const div = this.$("div.tab");
+            const elStyleText = `<style> ${styleset} div.tab#${div.id}{style-set: "${stylesetname}";}</style>`;
 
-            div.attributes.styleset = stylesetname;
+            //console.warn("styleset - " + elStyleText);
 
+            // inject styleset in head
+            document.head.insertAdjacentHTML("beforeend", elStyleText);
+            
             // remove style tag to avoid interfearing
             styleElement.remove();
         }
@@ -148,21 +146,43 @@ export class Tab extends Element {
         // source: https://2ality.com/2019/10/eval-via-import.html
         // html encode javascript
         const encodedJs = encodeURIComponent(script);
-        const dataUri = "data:text/javascript;charset=utf-8," + encodedJs;
+        const dataUri   = "data:text/javascript;charset=utf-8," + encodedJs;
+
+        /*alternative but not yet working/explore it
+        const module = evalModule(script);
+
+        if (!module) {
+            console.error(`Init tab - FAILED - ${this.id} - tab module load - ${debugHint}`);
+            return;
+        }
+
+        if (!this.pagecontrol())
+            return;
+
+        // initialize tab
+        module.initTab(this, this.pagecontrol());
+        */
 
         // load tab script
         await import(dataUri)
             .then(module => {
+                console.debug("Load tab script - tab id - " + this.id + " - page control - " + this.pagecontrol());
+
+                // todo -cBug -oDavid -oNiki -oJean: for an unknown reason this function is sometimes called twice
+                //                                   for each tab. Find why and fix
+                if (!this.pagecontrol())
+                    return;
+
                 // initialize tab
                 module.initTab(this, this.pagecontrol());
-            })
+            }.bind(this))
             .catch(error => {
                 // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
                 // make sure to comment empty/commented <script> "initTab" functions
                 if (typeof error === "object" && error !== null)
-                    console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${debugHint}`);
+                    console.error(`Init tab - FAILED - ${this.id} - ${error.message} - line ${error.lineNumber + 2} - in ${debugHint}`);
                 else
-                    console.error(`Init tab - FAILED - ${error} - in ${debugHint}`);
+                    console.error(`Init tab - FAILED - ${this.id} - ${error} - in ${debugHint}`);
             });
     }
 }
@@ -202,12 +222,12 @@ export class PageControl extends Element {
         const position = this.attributes["header-position"] ?? "";
 
         let headersFirst = true;
-        let classes = "";
+        let classes      = "";
 
         switch (position) {
             case "right":
                 headersFirst = false;
-                classes = "side";
+                classes      = "side";
                 break;
 
             case "bottom":
@@ -257,19 +277,19 @@ export class PageControl extends Element {
      */
     ["on keyup at > div > div.header > div"](event, element) {
         switch (event.code) {
-            case "KeyRETURN": {
+            case "Enter": {
                 this.#tabHeaderClicked(element);
                 break;
             }
 
-            case "KeyLEFT":
-            case "KeyUP": {
+            case "ArrowLeft":
+            case "ArrowUp": {
                 this.#getPreviousNextTabHeader(-1, "focus").focus();
                 break;
             }
 
-            case "KeyRIGHT":
-            case "KeyDOWN":
+            case "ArrowRight":
+            case "ArrowDown":
                 this.#getPreviousNextTabHeader(+1, "focus").focus();
                 // No default
                 break;
@@ -284,7 +304,7 @@ export class PageControl extends Element {
      */
     showTab(id) {
         const selector = this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`;
-        const header = this.$(selector);
+        const header   = this.$(selector);
 
         if (!header) {
             console.warn(`invalid tab ${id}`);
@@ -457,7 +477,7 @@ export class PageControl extends Element {
             bubbles: true,
             detail: {
                 tab: id,
-            },
+            }
         }));
     }
 
@@ -496,7 +516,7 @@ export class PageControl extends Element {
             bubbles: true,
             detail: {
                 tab: tab.id,
-            },
+            }
         }));
     }
 

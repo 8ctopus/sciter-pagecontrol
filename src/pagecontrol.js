@@ -38,34 +38,7 @@ export class Tab extends Element {
         if (this.hasAttribute("hide"))
             this.pagecontrol().toggleTabHeader(this.id);
 
-        const tabStyle = this.$("style");
-
-        if (tabStyle) {
-            // get its content
-            const style = tabStyle.innerHTML;
-
-            // get pagecontrol id
-            const id = this.pagecontrol().id;
-
-            // set styleset name
-            let stylesetname = `${id}-` + this.id;
-
-            // create styleset in order to inject tab style
-            const styleset = `@set ${stylesetname} { ${style} }`;
-
-            // inject styleset in head
-            document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
-
-            // set styleset name for component
-            stylesetname = `#${stylesetname}`;
-
-            const div = this.$("div.tab");
-
-            div.attributes.styleset = stylesetname;
-
-            // remove style tag to avoid interfering
-            tabStyle.remove();
-        }
+        this.loadStyle();
 
         const tabJs = this.$("script");
 
@@ -79,6 +52,36 @@ export class Tab extends Element {
             // remove script tag to avoid interfering
             tabJs.remove();
         }
+    }
+
+    loadStyle() {
+        const tabStyle = this.$("style");
+
+        if (!tabStyle) {
+            return;
+        }
+
+        const style = tabStyle.innerHTML;
+
+        const id = this.pagecontrol().id;
+
+        let styleSetName = `${id}-` + this.id;
+
+        // create styleset in order to inject tab style
+        const styleset = `@set ${styleSetName} { ${style} }`;
+
+        // inject styleset in head
+        document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
+
+        // set styleset name for component
+        styleSetName = `#${styleSetName}`;
+
+        const div = this.$("div.tab");
+
+        div.attributes.styleset = styleSetName;
+
+        // remove style tag to avoid interfering
+        tabStyle.remove();
     }
 
     /**

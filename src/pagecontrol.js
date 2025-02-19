@@ -16,7 +16,7 @@ export class Tab extends Element {
         const source = this.attributes.src || undefined;
 
         // check if id set if not generate one
-        this.id = Tab.validateID(this.id, this.elementIndex + 1);
+        this.id = Tab.validateId(this.id, this.elementIndex + 1);
 
         let html = "";
 
@@ -122,7 +122,7 @@ export class Tab extends Element {
      * @param {number} index - tab index in pagecontrol
      * @returns {string} original id if set, fixed otherwise
      */
-    static validateID(id, index) {
+    static validateId(id, index) {
         // create id if not set
         if (id === "")
             return `tab-${index}`;
@@ -392,7 +392,7 @@ export class PageControl extends Element {
             index++;
 
             // validate id if not yet set
-            const tabID = Tab.validateID(tab.id, index);
+            const tabID = Tab.validateId(tab.id, index);
 
             // get caption
             const caption = tab.attributes.caption || tabID;

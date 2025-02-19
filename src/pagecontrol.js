@@ -68,14 +68,17 @@ export class Tab extends Element {
             styleElement.remove();
         }
 
-        // get SCRIPT tag
+        // get tab js
         const scriptElement = this.$("script");
 
         if (scriptElement) {
-            // load script
-            this.loadTabScript(scriptElement.innerHTML, source);
+            const script = scriptElement.innerHTML.trim();
 
-            // remove script tag to avoid interfearing
+            if (script !== "") {
+                this.loadTabScript(script, source);
+            }
+
+            // remove script tag to avoid interfering
             scriptElement.remove();
         }
     }
@@ -133,12 +136,6 @@ export class Tab extends Element {
      * @param {string} debugHint
      */
     async loadTabScript(script, debugHint) {
-        // make sure not empty
-        script = script.trim();
-
-        if (script === "")
-            return;
-
         // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
         // source: https://2ality.com/2019/10/eval-via-import.html
         // html encode javascript

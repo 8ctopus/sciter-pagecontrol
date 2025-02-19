@@ -10,14 +10,12 @@ export class Tab extends Element {
      * Render component
      */
     render() {
-        const source = this.attributes.src || undefined;
-
         // check if id set if not generate one
         this.id = Tab.validateId(this.id, this.elementIndex + 1);
 
-        const html = !source ? this.innerHTML : "<include src=\"" + source + "\"/>";
+        const source = this.attributes.src || undefined;
+        const html = !source ? this.innerHTML : `<include src="${source}"/>`;
 
-        // create tab
         const tab = (
             <div .tab id={this.id} state-html={html} />
         );

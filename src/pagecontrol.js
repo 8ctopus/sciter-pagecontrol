@@ -39,19 +39,7 @@ export class Tab extends Element {
             this.pagecontrol().toggleTabHeader(this.id);
 
         this.loadStyle();
-
-        const tabJs = this.$("script");
-
-        if (tabJs) {
-            const script = tabJs.innerHTML.trim();
-
-            if (script !== "") {
-                this.loadTabScript(script, source);
-            }
-
-            // remove script tag to avoid interfering
-            tabJs.remove();
-        }
+        this.loadJs(source);
     }
 
     loadStyle() {
@@ -132,11 +120,23 @@ export class Tab extends Element {
     }
 
     /**
-     * Load tab script
-     * @param {string} script
-     * @param {string} debugHint
+     * Load tab js
+     *
+     * @param {string} source
      */
-    async loadTabScript(script, debugHint) {
+    async loadJs(source) {
+        const tabJs = this.$("script");
+
+        if (!tabJs) {
+            return;
+        }
+
+        const script = tabJs.innerHTML.trim();
+
+        if (script === "") {
+            return;
+        }
+
         // TODO see if there is equivalent to "Blob" in sciter to avoid reencoding script
         // source: https://2ality.com/2019/10/eval-via-import.html
         // html encode javascript
@@ -153,9 +153,9 @@ export class Tab extends Element {
             // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
             // make sure to comment empty/commented <script> "initTab" functions
             if (typeof error === "object" && error !== null)
-                console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${debugHint}`);
+                console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${source}`);
             else
-                console.error(`Init tab - FAILED - ${error} - in ${debugHint}`);
+                console.error(`Init tab - FAILED - ${error} - in ${source}`);
         }
     }
 }

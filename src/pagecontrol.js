@@ -15,9 +15,7 @@ export class Tab extends Element {
         // check if id set if not generate one
         this.id = Tab.validateId(this.id, this.elementIndex + 1);
 
-        let html = "";
-
-        html = !source ? this.innerHTML : "<include src=\"" + source + "\"/>";
+        const html = !source ? this.innerHTML : "<include src=\"" + source + "\"/>";
 
         // create tab
         const tab = (

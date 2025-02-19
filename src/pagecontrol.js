@@ -1,8 +1,6 @@
 /**
  * A simple pagecontrol component
- * @author hello@octopuslabs.io
  */
-
 export class Tab extends Element {
     /**
      * Called when element is attached to the DOM tree

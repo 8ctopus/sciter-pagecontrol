@@ -16,11 +16,9 @@ export class Tab extends Element {
         const source = this.attributes.src || undefined;
         const html = !source ? this.innerHTML : `<include src="${source}"/>`;
 
-        const tab = (
+        this.content((
             <div .tab id={this.id} state-html={html} />
-        );
-
-        this.content(tab);
+        ));
 
         const expanded = (this.attributes.selected === "");
 

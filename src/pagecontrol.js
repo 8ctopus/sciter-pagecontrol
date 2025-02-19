@@ -285,7 +285,7 @@ export class PageControl extends Element {
         const header = this.$(selector);
 
         if (!header) {
-            console.warn(`invalid tab ${id}`);
+            console.warn(`show tab - invalid tab - ${id}`);
             return;
         }
 
@@ -346,7 +346,7 @@ export class PageControl extends Element {
         const header = this.$(this.#mainDivSelector() + ` > div.header > div[panel="${id}"]`);
 
         if (!header) {
-            console.warn(`invalid tab ${id}`);
+            console.warn(`toggle tab header - invalid tab - ${id}`);
             return;
         }
 
@@ -443,7 +443,7 @@ export class PageControl extends Element {
         const tab = this.$(selector);
 
         if (!tab) {
-            console.error(`invalid tab ${id}`);
+            console.error(`expand tab - invalid tab - ${id}`);
             return;
         }
 

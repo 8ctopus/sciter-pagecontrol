@@ -142,21 +142,20 @@ export class Tab extends Element {
         const encodedJs = encodeURIComponent(script);
         const dataUri = "data:text/javascript;charset=utf-8," + encodedJs;
 
-        // load tab script
-        await import(dataUri)
-            .then(module => {
-                if (module.initTab) {
-                    module.initTab(this, this.pagecontrol());
-                }
-            })
-            .catch(error => {
-                // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
-                // make sure to comment empty/commented <script> "initTab" functions
-                if (typeof error === "object" && error !== null)
-                    console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${debugHint}`);
-                else
-                    console.error(`Init tab - FAILED - ${error} - in ${debugHint}`);
-            });
+        try {
+            const module = await import(dataUri);
+
+            if (module.initTab) {
+                module.initTab(this, this.pagecontrol());
+            }
+        } catch (error) {
+            // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
+            // make sure to comment empty/commented <script> "initTab" functions
+            if (typeof error === "object" && error !== null)
+                console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${debugHint}`);
+            else
+                console.error(`Init tab - FAILED - ${error} - in ${debugHint}`);
+        }
     }
 }
 

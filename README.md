@@ -6,6 +6,8 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ![sciter pagecontrol screenshot](https://github.com/8ctopus/sciter-pagecontrol/raw/master/screenshot.png)
 
+**IMPORTANT**: works until 5.0.3.9, breaks in 5.0.3.10
+
 ## features
 
 - load tab contents inline or from external source
@@ -29,8 +31,6 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - A recent version of Node.js `node` (tested with 22 LTS) and its package manager `npm`.
     - On Windows [download](https://nodejs.dev/download/) and run the installer
     - On Linux check the [installation guide](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04#option-2-%E2%80%94-installing-node-js-with-apt-using-a-nodesource-ppa)
-
-## add to your project
 
 ## add to your project
 

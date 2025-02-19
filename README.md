@@ -15,7 +15,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - tab headers on any side
 - select and iterate through tabs from code
 - show/hide all tabs or a specific tab
-- support screenreaders
+- supports screenreaders
 
 ## demo
 
@@ -32,13 +32,19 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ## add to your project
 
+## add to your project
+
+You can either add it to your project using npm or by copying the src directory.
+
 ### using npm
 
 - install package `npm install sciter-pagecontrol`
 
-### using source
+### copy source
 
-- copy the `src` dir to your project
+- add the `src` dir to your project
+
+### add to css
 
 ```html
 <style>
@@ -48,6 +54,7 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 /* include using src dir */
 @import url(src/pagecontrol.css);
+
 </style>
 <body>
     <pagecontrol header-position="top" header-visible="true">
@@ -68,7 +75,6 @@ To apply a custom style to the control, you will need to use the `pagecontrol` `
 
 ```css
 @set pagecontrol < pagecontrol-base {
-
     /* set tab border to red */
     div.tabs {
         border: 1dip solid red;

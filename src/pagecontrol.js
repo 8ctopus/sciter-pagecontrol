@@ -38,12 +38,11 @@ export class Tab extends Element {
         if (this.hasAttribute("hide"))
             this.pagecontrol().toggleTabHeader(this.id);
 
-        // load STYLE tag from loaded element
-        const styleElement = this.$("style");
+        const tabStyle = this.$("style");
 
-        if (styleElement) {
+        if (tabStyle) {
             // get its content
-            const style = styleElement.innerHTML;
+            const style = tabStyle.innerHTML;
 
             // get pagecontrol id
             const id = this.pagecontrol().id;
@@ -64,22 +63,21 @@ export class Tab extends Element {
 
             div.attributes.styleset = stylesetname;
 
-            // remove style tag to avoid interfearing
-            styleElement.remove();
+            // remove style tag to avoid interfering
+            tabStyle.remove();
         }
 
-        // get tab js
-        const scriptElement = this.$("script");
+        const tabJs = this.$("script");
 
-        if (scriptElement) {
-            const script = scriptElement.innerHTML.trim();
+        if (tabJs) {
+            const script = tabJs.innerHTML.trim();
 
             if (script !== "") {
                 this.loadTabScript(script, source);
             }
 
             // remove script tag to avoid interfering
-            scriptElement.remove();
+            tabJs.remove();
         }
     }
 

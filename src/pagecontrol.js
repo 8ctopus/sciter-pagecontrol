@@ -52,10 +52,10 @@ export class Tab extends Element {
         let styleSetName = `${id}-` + this.id;
 
         // create styleset in order to inject tab style
-        const styleset = `@set ${styleSetName} { ${style} }`;
+        const styleSet = `@set ${styleSetName} { ${style} }`;
 
         // inject styleset in head
-        document.head.insertAdjacentHTML("beforeend", `<style> ${styleset} </style>`);
+        document.head.insertAdjacentHTML("beforeend", `<style> ${styleSet} </style>`);
 
         // set styleset name for component
         styleSetName = `#${styleSetName}`;

@@ -1,6 +1,3 @@
-/**
- * A simple pagecontrol component
- */
 export class Tab extends Element {
     /**
      * Called when element is attached to the DOM tree

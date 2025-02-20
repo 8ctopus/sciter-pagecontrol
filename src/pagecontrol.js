@@ -36,32 +36,6 @@ export class Tab extends Element {
         this.loadJs(source);
     }
 
-    loadStyle() {
-        const tabStyle = this.$("style");
-
-        if (!tabStyle) {
-            return;
-        }
-
-        const style = tabStyle.innerHTML;
-
-        const id = this.pagecontrol().id;
-
-        let styleSetName = `${id}-` + this.id;
-
-        // create styleset in order to inject tab style
-        const styleSet = `@set ${styleSetName} { ${style} }`;
-
-        const div = this.$("div.tab");
-        const elementStyleSet = `<style> ${styleSet} div.tab#${div.id}{style-set: "${styleSetName}";}</style>`;
-
-        // inject styleset in head
-        document.head.insertAdjacentHTML("beforeend", elementStyleSet);
-
-        // remove style tag to avoid interfering
-        tabStyle.remove();
-    }
-
     /**
      * Return parent pagecontrol
      * @returns {Element}
@@ -107,6 +81,35 @@ export class Tab extends Element {
             return `tab-${index}`;
 
         return id;
+    }
+
+    /**
+     * Load tab style
+     */
+    loadStyle() {
+        const tabStyle = this.$("style");
+
+        if (!tabStyle) {
+            return;
+        }
+
+        const style = tabStyle.innerHTML;
+
+        const id = this.pagecontrol().id;
+
+        let styleSetName = `${id}-` + this.id;
+
+        // create styleset in order to inject tab style
+        const styleSet = `@set ${styleSetName} { ${style} }`;
+
+        const div = this.$("div.tab");
+        const elementStyleSet = `<style> ${styleSet} div.tab#${div.id}{style-set: "${styleSetName}";}</style>`;
+
+        // inject styleset in head
+        document.head.insertAdjacentHTML("beforeend", elementStyleSet);
+
+        // remove style tag to avoid interfering
+        tabStyle.remove();
     }
 
     /**

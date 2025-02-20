@@ -1,10 +1,13 @@
 # sciter pagecontrol
 
+![latest version](https://img.shields.io/npm/v/sciter-pagecontrol.svg)
+![downloads](https://img.shields.io/npm/dy/sciter-pagecontrol.svg)
+
 This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 "It is a multi-page component that provides a container to hold a variety of controls per page. Much like a real-world notebook, it displays a "tab" per page so that the user can quickly switch between pages. Each page can contain its own selection of controls." [[1]](https://wiki.freepascal.org/TPageControl)
 
-![sciter pagecontrol screenshot](https://github.com/8ctopus/sciter-pagecontrol/raw/master/screenshot.png)
+![sciter pagecontrol screenshot](screenshot.png)
 
 **IMPORTANT**: works until 5.0.3.9, breaks in 5.0.3.10
 

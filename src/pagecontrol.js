@@ -147,9 +147,9 @@ export class Tab extends Element {
             // ! in case of "Init tab - FAILED - unexpected token in expression: '.'",
             // make sure to comment empty/commented <script> "initTab" functions
             if (typeof error === "object" && error !== null)
-                console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - in ${source}`);
+                console.error(`Init tab - FAILED - ${error.message} - line ${error.lineNumber + 2} - ${this.id} - ${source}`);
             else
-                console.error(`Init tab - FAILED - ${error} - in ${source}`);
+                console.error(`Init tab - FAILED - ${error} - ${this.id} - ${source}`);
         }
     }
 }

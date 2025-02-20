@@ -244,19 +244,19 @@ export class PageControl extends Element {
      */
     ["on keyup at > div > div.header > div"](event, element) {
         switch (event.code) {
-            case "KeyRETURN": {
+            case "Enter": {
                 this.#tabHeaderClicked(element);
                 break;
             }
 
-            case "KeyLEFT":
-            case "KeyUP": {
+            case "ArrowLeft":
+            case "ArrowUp": {
                 this.#getPreviousNextTabHeader(-1, "focus").focus();
                 break;
             }
 
-            case "KeyRIGHT":
-            case "KeyDOWN":
+            case "ArrowRight":
+            case "ArrowDown":
                 this.#getPreviousNextTabHeader(+1, "focus").focus();
                 // No default
                 break;

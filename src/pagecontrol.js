@@ -52,15 +52,11 @@ export class Tab extends Element {
         // create styleset in order to inject tab style
         const styleSet = `@set ${styleSetName} { ${style} }`;
 
-        // inject styleset in head
-        document.head.insertAdjacentHTML("beforeend", `<style> ${styleSet} </style>`);
-
-        // set styleset name for component
-        styleSetName = `#${styleSetName}`;
-
         const div = this.$("div.tab");
+        const elementStyleSet = `<style> ${styleSet} div.tab#${div.id}{style-set: "${styleSetName}";}</style>`;
 
-        div.attributes.styleset = styleSetName;
+        // inject styleset in head
+        document.head.insertAdjacentHTML("beforeend", elementStyleSet);
 
         // remove style tag to avoid interfering
         tabStyle.remove();

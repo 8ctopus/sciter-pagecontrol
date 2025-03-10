@@ -9,8 +9,6 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 
 ![sciter pagecontrol screenshot](https://github.com/8ctopus/sciter-pagecontrol/raw/master/screenshot.png)
 
-**IMPORTANT**: works until 5.0.3.9, breaks in 5.0.3.10
-
 ## features
 
 - load tab contents inline or from external file

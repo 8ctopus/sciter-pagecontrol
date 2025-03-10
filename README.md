@@ -68,7 +68,7 @@ You can either add it to your project using npm or by copying the src directory.
         <tab caption="2nd tab">
             <button> another button </button>
         </tab>
-        <tab caption="my tab" src="tab.html" icon="fas fa-star" />
+        <tab caption="my tab" src="tab.htm" icon="fas fa-star" />
     </pagecontrol>
 ```
 

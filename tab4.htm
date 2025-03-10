@@ -25,6 +25,11 @@ const test = globalThis.test;
  * @param {Element} pagecontrol
  */
 export function initTab(tab, pagecontrol) {
+    // required since 5.0.3.10
+    if (!pagecontrol) {
+        return;
+    }
+
     tab.on("click", "button#search", function() {
         console.debug(`${tab.id} search the web`);
         env.launch("https://duckduckgo.com");

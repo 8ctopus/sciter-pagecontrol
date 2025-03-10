@@ -17,6 +17,11 @@ button {
  * @param {Element} pagecontrol
  */
 export function initTab(tab, pagecontrol) {
+    // required since 5.0.3.10
+    if (!pagecontrol) {
+        return;
+    }
+
     // handle button click event
     tab.on("click", "button#hello", function() {
         console.debug(`${tab.id} button clicked!`);

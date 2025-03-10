@@ -25,10 +25,8 @@ const test = globalThis.test;
  * @param {Element} pagecontrol
  */
 export function initTab(tab, pagecontrol) {
-    // handle button click event
-    tab.on("click", "button#hello", function() {
-        console.debug(`${tab.id} button clicked!`);
-
+    tab.on("click", "button#search", function() {
+        console.debug(`${tab.id} search the web`);
         env.launch("https://duckduckgo.com");
     });
 
@@ -47,4 +45,4 @@ export function initTab(tab, pagecontrol) {
 
 </script>
 <p> fourth tab content </p>
-<button #hello> search the web </button>
+<button #search> search the web </button>

@@ -20,6 +20,8 @@ This is a [sciter.js](https://sciter.com/) pagecontrol component.
 - show/hide all tabs or a specific tab
 - supports screenreaders
 
+*IMPORTANT*: Works fine until 5.0.3.21 included. There is a new issue since 6.0.0.0 where scapp crashes when there are more than 2 pagecontrols on the page
+
 ## demo
 
 - git clone the repository

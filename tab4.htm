@@ -15,9 +15,8 @@ button {
 import * as env from "@env";
 
 // import doesn't work, import in main code and make it globally accessible
+//const test = globalThis.test;
 //import {test} from "js/test.js";
-
-const test = globalThis.test;
 
 /**
  * Initialize tab
@@ -43,6 +42,8 @@ export function initTab(tab, pagecontrol) {
 
         // do something when tab is shown
         console.debug(`${tab.id} shown`);
+
+        const test = globalThis.test;
 
         test();
     });
